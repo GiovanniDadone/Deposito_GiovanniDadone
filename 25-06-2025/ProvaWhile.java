@@ -8,5 +8,11 @@ public class ProvaWhile {
             count++;
             System.out.println(count);
         }
+
+        //esempio do-while
+        do {
+            count--;
+            System.out.println(count);
+        } while (count != 0);
     }
 }
