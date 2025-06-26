@@ -1,4 +1,5 @@
 public class ProvaArray {
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
         // inizializzazione array
         int[] numeri = new int[5]; // array di dimensione 5, ma ogni valore sarà nullo che per gli int è zero
@@ -32,6 +33,7 @@ public class ProvaArray {
                 { 4, 5, 6 },
                 { 7, 8, 9 }
         };
+        
 
         //rimepimento matrice con numeri progressivi
         for (int i = 0; i < matrice.length; i++) {
