@@ -35,6 +35,7 @@ public class EsercizioConcorsoGruppo3 {
             if (votiFoto[i] >= 8 && votiFoto[i] % 2 == 0) {
                 System.out.println("Foto premiata n°" + (i + 1) + ": voto: " + votiFoto[i]);
                 fotoPremiate++;  //aumento counter
+                System.out.println("Numero foto premiate: " + fotoPremiate);
             }
         }
 
@@ -47,7 +48,7 @@ public class EsercizioConcorsoGruppo3 {
         }
 
         //stampa della validità del concorso
-        if (fotoPremiate >= 1) {
+        if (concorsoValido >= 1) {
             System.out.println("Concorso valido");
         } else {
             System.out.println("Concorso annullato");
