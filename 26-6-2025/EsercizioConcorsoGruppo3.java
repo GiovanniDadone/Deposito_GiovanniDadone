@@ -25,7 +25,6 @@ public class EsercizioConcorsoGruppo3 {
                     System.out.println("input non valido");
                 }
             } while (!inputValido);
-
         }
 
         //variabile counter per contare le foto premiate
@@ -48,11 +47,13 @@ public class EsercizioConcorsoGruppo3 {
         }
 
         //stampa della validità del concorso
-        if (concorsoValido >= 1) {
+        if (fotoPremiate >= 1) {
             System.out.println("Concorso valido");
         } else {
             System.out.println("Concorso annullato");
         }
+
+        
 
     }
 }
