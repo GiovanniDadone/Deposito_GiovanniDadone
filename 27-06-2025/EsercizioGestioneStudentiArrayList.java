@@ -45,6 +45,7 @@ public class EsercizioGestioneStudentiArrayList {
             System.out.println("Vuoi eliminare degli studenti dalla lista? (s/n)");
             String scelta = scannerStringhe.nextLine();
 
+            //controllo dell'input in modo che sia effettivamente si o no
             if (scelta.toLowerCase().charAt(0)=='s' || scelta.toLowerCase().charAt(0)=='n'){
 
                 if (scelta.toLowerCase().charAt(0)=='s') {
