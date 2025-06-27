@@ -15,7 +15,6 @@ public class EsercizioFunzioni {
 
     static String faiFattoriale(String parola) {
         
-
         for (int i = 0; i < parola.length(); i++) {
             System.out.println("Carattere n°"+ (i+1) + " " +parola.charAt(i));
         }
