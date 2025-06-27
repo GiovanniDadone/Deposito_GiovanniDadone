@@ -87,5 +87,7 @@ public class EsercizioArray {
         //stampa dei totali
         System.out.println("Numero totale di dolci ordinati: " + dolciTotali + ", costo totale: " + costoTotale);
 
+        intScanner.close();
+        stringScanner.close();
     }
 }

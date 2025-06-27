@@ -54,7 +54,7 @@ public class EsercizioConcorsoGruppo3 {
             System.out.println("Concorso annullato");
         }
 
-        
+        scannerInt.close();
 
     }
 }
