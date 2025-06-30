@@ -21,20 +21,21 @@ public class User {
 
     // metodo per rimuovere un libro ritornato dalla lista utente
     public void restituzioneLibro(Book book) {
+        if (book.daysBorrowed > 14) {
+            System.out.println("Applicazione penale di 1$ per giorno oltre la soglia: \nTotale: "
+                    + (book.daysBorrowed - 14) + "$");
+        }
+        book.daysBorrowed = 0;
         borrowedBooks.remove(book);
         book.isAvailable = true;
     }
 
     // metodo per stampare tuti i libri presi in prestito da un singolo utente
     void displayBorrowedBooks() {
-        for (Book book : borrowedBooks) {
-            book.displayBookInfo();
+        for (int i = 0; i < borrowedBooks.size(); i++) {
+            System.out.println("Book #" + (i + 1) + ": ");
+            borrowedBooks.get(i).displayBookInfo();
         }
     }
 
-    void passanoTotGiorni(int numeroGiorni) {
-        for (Book book : borrowedBooks) {
-            book.daysBorrowed++;
-        }
-    }
 }
