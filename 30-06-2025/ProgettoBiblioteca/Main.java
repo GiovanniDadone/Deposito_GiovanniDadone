@@ -63,7 +63,7 @@ public class Main {
                 case 3:
                     // metodo per cambiare la disponibilità di un libro e toglierlo ai libri presi
                     // in prestito di un utente
-                    System.out.println("Inserisci il titolo del libro da prendere in prestito");
+                    System.out.println("Inserisci il titolo del libro da prendere da ritornare");
                     String titoloRitorno = scannerString.nextLine();
                     listaUtenti.get(0).restituzioneLibro(libreria.borrowBook(titoloRitorno, listaUtenti.get(0)));
                     break;
