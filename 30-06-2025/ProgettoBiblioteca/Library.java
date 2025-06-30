@@ -23,10 +23,40 @@ public class Library {
     }
 
     //metodo che cambia la disponibiltà di un titolo in falso
-    void borrowBook(String title) {
+    Book borrowBook(String title, User user) {
+        Book borrowedBook = null;
+        for (Book book : listaLibri) {
+            if (book.title.equals(title) && user.borrowedBooks.size() < 4) {
+                borrowedBook = book;
+                book.isAvailable = false;
+            }
+        }
+        return borrowedBook;
+    }
+
+    //metodo che cambia la disponibiltà di un titolo in vero(true)
+    Book returnBook(String title) {
+        Book returnedBook = null;
         for (Book book : listaLibri) {
             if (book.title.equals(title)) {
-                book.isAvailable = false;
+                returnedBook = book;
+                book.isAvailable = true;
+            }
+        }
+        return returnedBook;
+    }
+
+    //metodo che stampa in console se l'input cercato è presente come autore o come libro
+    void searchBook(String input) {
+        for (Book book : listaLibri) {
+            if (book.title.equals(input)) {
+                System.out.println("Il libro è disponibile!");
+            }
+        }
+        for (Book book : listaLibri) {
+            if (book.author.equals(input)) {
+                System.out.println("Autore trovato");
+                book.displayBookInfo();
             }
         }
     }

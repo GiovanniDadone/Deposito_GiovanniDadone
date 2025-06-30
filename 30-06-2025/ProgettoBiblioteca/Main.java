@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -5,6 +6,11 @@ public class Main {
         Scanner scannerString = new Scanner(System.in);
         Scanner scannerInt = new Scanner(System.in);
 
+        // simulazione utente della biblioteca
+        ArrayList<User> listaUtenti = new ArrayList<>();
+        listaUtenti.add(new User("Marco"));
+
+        // inizializzazione nuova biblioteca
         Library libreria = new Library();
 
         // libreria generata con deepseek con titoli semplice per velocizzare il testing
@@ -25,8 +31,10 @@ public class Main {
                     Cosa vuoi fare?
                     1. Aggiungere un libro alla libreria?
                     2. Prendere un libro in prestito?
-                    3. Vedere tutti i titoli registrati?
-                    4. Esci dal programma
+                    3. Restituire un libro?
+                    4. Vedere tutti i titoli registrati?
+                    5. Cerca un titolo o autore
+                    6. Esci dal programma
                     """);
 
             // registrazione della scelta dell'utente
@@ -44,22 +52,37 @@ public class Main {
                     libreria.addBook(new Book(titolo, autore));
                     break;
                 case 2:
-                    System.out.println("Inserisci il titolo esatto da cercare");
+                    System.out.println("Inserisci il titolo del libro da prendere in prestito");
                     String titoloRicerca = scannerString.nextLine();
 
-                    // metodo per cambiare la disponibilità di un libro
-                    libreria.borrowBook(titoloRicerca);
+                    // metodo per cambiare la disponibilità di un libro e aggiungerlo ai libri presi
+                    // in prestito di un utente
+                    listaUtenti.get(0).prestitoLibro(libreria.borrowBook(titoloRicerca, listaUtenti.get(0)));
+
                     break;
                 case 3:
-                    // metodo per stampare a terminale i libri salvati nell'arraylist mezzi
-                    // formattati decenti
-                    libreria.displayBooks();
+                    // metodo per cambiare la disponibilità di un libro e toglierlo ai libri presi
+                    // in prestito di un utente
+                    System.out.println("Inserisci il titolo del libro da prendere in prestito");
+                    String titoloRitorno = scannerString.nextLine();
+                    listaUtenti.get(0).restituzioneLibro(libreria.borrowBook(titoloRitorno, listaUtenti.get(0)));
                     break;
                 case 4:
 
+                    // stampa in consolo tutti i titoli della libreria
+                    libreria.displayBooks();
+                    break;
+
+                case 5:
+
+                    // implementazione ricerca titoli o autori
+                    System.out.println("Digita il titolo di un libro o di un autore");
+                    String input = scannerString.nextLine();
+                    libreria.searchBook(input);
+
+                case 6:
                     // uscita dal programma con cambiamento della variabile su cui si regge il loop
                     // principale
-                    System.out.println("Uscita dal programma...");
                     inputValido = true;
                     break;
 
