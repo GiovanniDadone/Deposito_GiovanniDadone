@@ -11,11 +11,14 @@ public class EserczioClassi {
         public BankAccount(String username, String password) {
             this.username = username;
             this.password = password;
+
+            //inizializzazione del saldo iniziale in un certo range usando Math.random()
             int max = 1500;
             int min = 500;
             this.balance = (int) (Math.random() * (max - min + 1)) + min;
         }
 
+        //metodo che cambia la variabile isLoggedIn e far capire quale account è loggato
         boolean login(String username, String password) {
             if (this.username.equals(username) && this.password.equals(password)) {
                 isLoggedIn = true;
@@ -24,11 +27,13 @@ public class EserczioClassi {
             return this.isLoggedIn;
         }
 
+        //metodo che gestisce il deposito
         void deposit(double amount) {
             this.balance += amount;
             System.out.println("Hai depositato: " + amount + "$\nSaldo attuale: " + this.balance);
         }
 
+        //metodo che gestisce il prelievo con invalidamento dei prelievi con saldo negativo
         void withdraw(double amount) {
 
             boolean inputValido = false;
@@ -45,12 +50,15 @@ public class EserczioClassi {
 
         }
 
+        //metodo per fare vedere il saldo
         void displayBalance() {
             System.out.println("The current balance is: " + this.balance);
         }
     }
 
     public static void main(String[] args) {
+
+        //inizializzazione degli oggetti BankAccount
         ArrayList<BankAccount> accountList = new ArrayList<>();
         accountList.add(new BankAccount("Josh", "pass123"));
         accountList.add(new BankAccount("Alberto", "pass123"));
@@ -62,6 +70,8 @@ public class EserczioClassi {
 
         boolean inputValido = false;
 
+
+        //loop per l'inserimento delle credenziali, finchè non sono corrette le richiede senza poter andare avanti
         while (!inputValido) {
             System.out.println("Inserisci le credenziali:\nUsername: ");
             String username = scannerStringhe.nextLine();
@@ -70,11 +80,14 @@ public class EserczioClassi {
 
             for (BankAccount bankAccount : accountList) {
                 boolean accesso = bankAccount.login(username, password);
+
+                //operazione valida solo per l'account che risulta loggato, totalmente ignorato per gli altri
                 if (accesso) {
                     inputValido = true;
 
                     boolean inputValido2 = false;
 
+                    //secodno loop per la gestione del singolo account
                     while (!inputValido2) {
                         System.out.println("""
                                 Che operazione desideri fare?
