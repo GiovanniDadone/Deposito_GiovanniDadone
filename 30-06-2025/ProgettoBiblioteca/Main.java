@@ -33,7 +33,8 @@ public class Main {
                     2. Prendere un libro in prestito?
                     3. Restituire un libro?
                     4. Vedere tutti i titoli registrati?
-                    5. Cerca un titolo o autore
+                    5. Cerca un titolo o
+                    6. Visualizza tutti titoli in prestito di un utente
                     6. Esci dal programma
                     """);
 
@@ -68,19 +69,21 @@ public class Main {
                     listaUtenti.get(0).restituzioneLibro(libreria.borrowBook(titoloRitorno, listaUtenti.get(0)));
                     break;
                 case 4:
-
-                    // stampa in consolo tutti i titoli della libreria
+                    // stampa in console tutti i titoli della libreria
                     libreria.displayBooks();
                     break;
 
                 case 5:
-
                     // implementazione ricerca titoli o autori
                     System.out.println("Digita il titolo di un libro o di un autore");
                     String input = scannerString.nextLine();
                     libreria.searchBook(input);
 
                 case 6:
+
+                    break;
+
+                case 7:
                     // uscita dal programma con cambiamento della variabile su cui si regge il loop
                     // principale
                     inputValido = true;

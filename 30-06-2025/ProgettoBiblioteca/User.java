@@ -8,7 +8,8 @@ public class User {
         this.name = name;
     }
 
-    //gestione prestiti con limite massimo
+    // metodo per aggiungere un libro dalla lista dei libri utente se non ce ne sono
+    // già tre presenti
     public void prestitoLibro(Book book) {
         if (borrowedBooks.size() < 4) {
             borrowedBooks.add(book);
@@ -18,9 +19,22 @@ public class User {
         }
     }
 
-    //gestione ritorni
+    // metodo per rimuovere un libro ritornato dalla lista utente
     public void restituzioneLibro(Book book) {
         borrowedBooks.remove(book);
         book.isAvailable = true;
+    }
+
+    // metodo per stampare tuti i libri presi in prestito da un singolo utente
+    void displayBorrowedBooks() {
+        for (Book book : borrowedBooks) {
+            book.displayBookInfo();
+        }
+    }
+
+    void passanoTotGiorni(int numeroGiorni) {
+        for (Book book : borrowedBooks) {
+            book.daysBorrowed++;
+        }
     }
 }
