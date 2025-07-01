@@ -1,18 +1,78 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EsercizioIncapsulamento2 {
     public static void main(String[] args) {
-        // creazione
-        CompagniaAerea tappetiVolanti = new CompagniaAerea("Tappeti Volanti");
 
-        // popolamento della flotta e dei piloti della compagnia
-        tappetiVolanti.aggiungiAereo("Boeing 747", 300);
-        tappetiVolanti.aggiungiAereo("Airbus A320", 180);
-        tappetiVolanti.aggiungiPilota("Mario Rossi", 1500);
-        tappetiVolanti.aggiungiPilota("Luigi Verdi", 800);
+        //apertura scanner per gestire gli input
+        Scanner scannerStringhe = new Scanner(System.in);
+        Scanner scannerInt = new Scanner(System.in);
 
-        // stampa dei dati della compagnia
-        tappetiVolanti.stampaDettagliCompagnia();
+        //creazione di oggetto CompagniaAerea per provare i metodi
+        CompagniaAerea compagnia = new CompagniaAerea("Tappeti Volanti");
+
+
+        //apertura ciclo principale tramite validazione del booleano inputValido, quando cambia il ciclo non si ripete
+        boolean inputValido = false;
+        while (!inputValido) {
+
+            //a ogni ciclo il print statement del menù si ripete
+            displayMenu();
+
+            //ricezione dell'input dell'utente, un numero intero
+            int scelta = scannerInt.nextInt();
+
+
+            //gestione dell'input utente
+            switch (scelta) {
+                case 1:
+                    System.out.println("\n--- Aggiungi un nuovo pilota ---");
+                    System.out.print("Nome pilota: ");
+                    String nome = scannerStringhe.nextLine();                   //immissione nome del nuovo pilota
+                    System.out.print("Ore di volo: ");
+                    int oreVolo = scannerInt.nextInt();                         //immissione ore di volo del nuovo pilota
+                    compagnia.aggiungiPilota(nome, oreVolo);                    //aggiunta alla lista dei piloti di CompagniaAerea
+                    System.out.println("Pilota aggiunto con successo!");
+                    break;
+
+                case 2:
+                    System.out.println("\n--- Aggiungi un nuovo aereo ---");
+                    System.out.print("Modello aereo: ");
+                    String modello = scannerStringhe.nextLine();                //immissione nome modello del nuovo aereo
+                    System.out.print("Numero posti: ");
+                    int posti = scannerInt.nextInt();                           //immissione numero di posti del nuovo aereo
+                    compagnia.aggiungiAereo(modello, posti);                    //aggiunta del nuovo aereo alla flotta di CompagniaAerea
+                    System.out.println("Aereo aggiunto con successo!");
+                    break;
+
+                case 3:
+                    compagnia.stampaDettagliCompagnia();                        //stampa dei dettagli della compagnia
+                    break;
+
+                case 4:
+                    System.out.println("Arrivederci!");                       //uscita dal ciclo while
+                    inputValido = true;
+                    return;
+
+                default:
+                    System.out.println("Scelta non valida! Riprova.");          //gestione delle scelte non presenti nello blocco switch
+            }
+
+            System.out.println("\nPremi Invio per continuare...");            //immisione nulla per fare da buffer dei cicli
+            scannerStringhe.nextLine();
+        }
+
+        scannerInt.close();
+        scannerStringhe.close();
+    }
+
+    public static void displayMenu() {
+        System.out.println("\n=== MENU COMPAGNIA AEREA ===");
+        System.out.println("1. Aggiungi un pilota");
+        System.out.println("2. Aggiungi un aereo");
+        System.out.println("3. Visualizza dettagli compagnia");
+        System.out.println("4. Esci");
+        System.out.print("Scelta: ");
     }
 }
 
