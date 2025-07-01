@@ -4,61 +4,61 @@ import java.util.Scanner;
 public class EsercizioIncapsulamento2 {
     public static void main(String[] args) {
 
-        //apertura scanner per gestire gli input
+        // apertura scanner per gestire gli input
         Scanner scannerStringhe = new Scanner(System.in);
         Scanner scannerInt = new Scanner(System.in);
 
-        //creazione di oggetto CompagniaAerea per provare i metodi
+        // creazione di oggetto CompagniaAerea per provare i metodi
         CompagniaAerea compagnia = new CompagniaAerea("Tappeti Volanti");
 
-
-        //apertura ciclo principale tramite validazione del booleano inputValido, quando cambia il ciclo non si ripete
+        // apertura ciclo principale tramite validazione del booleano inputValido,
+        // quando cambia il ciclo non si ripete
         boolean inputValido = false;
         while (!inputValido) {
 
-            //a ogni ciclo il print statement del menù si ripete
+            // a ogni ciclo il print statement del menù si ripete
             displayMenu();
 
-            //ricezione dell'input dell'utente, un numero intero
+            // ricezione dell'input dell'utente, un numero intero
             int scelta = scannerInt.nextInt();
 
-
-            //gestione dell'input utente
+            // gestione dell'input utente
             switch (scelta) {
                 case 1:
                     System.out.println("\n--- Aggiungi un nuovo pilota ---");
                     System.out.print("Nome pilota: ");
-                    String nome = scannerStringhe.nextLine();                   //immissione nome del nuovo pilota
+                    String nome = scannerStringhe.nextLine(); // immissione nome del nuovo pilota
                     System.out.print("Ore di volo: ");
-                    int oreVolo = scannerInt.nextInt();                         //immissione ore di volo del nuovo pilota
-                    compagnia.aggiungiPilota(nome, oreVolo);                    //aggiunta alla lista dei piloti di CompagniaAerea
+                    int oreVolo = scannerInt.nextInt(); // immissione ore di volo del nuovo pilota
+                    compagnia.aggiungiPilota(nome, oreVolo); // aggiunta alla lista dei piloti di CompagniaAerea
                     System.out.println("Pilota aggiunto con successo!");
                     break;
 
                 case 2:
                     System.out.println("\n--- Aggiungi un nuovo aereo ---");
                     System.out.print("Modello aereo: ");
-                    String modello = scannerStringhe.nextLine();                //immissione nome modello del nuovo aereo
+                    String modello = scannerStringhe.nextLine(); // immissione nome modello del nuovo aereo
                     System.out.print("Numero posti: ");
-                    int posti = scannerInt.nextInt();                           //immissione numero di posti del nuovo aereo
-                    compagnia.aggiungiAereo(modello, posti);                    //aggiunta del nuovo aereo alla flotta di CompagniaAerea
+                    int posti = scannerInt.nextInt(); // immissione numero di posti del nuovo aereo
+                    compagnia.aggiungiAereo(modello, posti); // aggiunta del nuovo aereo alla flotta di CompagniaAerea
                     System.out.println("Aereo aggiunto con successo!");
                     break;
 
                 case 3:
-                    compagnia.stampaDettagliCompagnia();                        //stampa dei dettagli della compagnia
+                    compagnia.stampaDettagliCompagnia(); // stampa dei dettagli della compagnia
                     break;
 
                 case 4:
-                    System.out.println("Arrivederci!");                       //uscita dal ciclo while
+                    System.out.println("Arrivederci!"); // uscita dal ciclo while
                     inputValido = true;
                     return;
 
                 default:
-                    System.out.println("Scelta non valida! Riprova.");          //gestione delle scelte non presenti nello blocco switch
+                    System.out.println("Scelta non valida! Riprova."); // gestione delle scelte non presenti nello
+                                                                       // blocco switch
             }
 
-            System.out.println("\nPremi Invio per continuare...");            //immisione nulla per fare da buffer dei cicli
+            System.out.println("\nPremi Invio per continuare..."); // immisione nulla per fare da buffer dei cicli
             scannerStringhe.nextLine();
         }
 
