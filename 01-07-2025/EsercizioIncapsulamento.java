@@ -96,9 +96,9 @@ class Studente {
         return numeroStudenti;
     }
 
-    // metodo statico per aumenatare i lnumero degli studenti a ogni istanziamento
+    // metodo statico e privato per aumenatare i lnumero degli studenti a ogni istanziamento
     // di oggetto
-    public static void aumentoStudenti() {
+    private static void aumentoStudenti() {
         numeroStudenti++;
     }
 
