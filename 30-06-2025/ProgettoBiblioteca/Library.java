@@ -16,13 +16,13 @@ public class Library {
     // metodo per mostarre in console la lista dei libri all'interno dell'arraylist
     void displayBooks() {
         for (int i = 0; i < listaLibri.size(); i++) {
-            System.out.println("Libro #" + (i+1) + ": ");
+            System.out.println("Libro #" + (i + 1) + ": ");
             listaLibri.get(i).displayBookInfo();
             System.out.println("---------------------------");
         }
     }
 
-    //metodo che cambia la disponibiltà di un titolo in falso
+    // metodo che cambia la disponibiltà di un titolo in falso
     Book borrowBook(String title, User user) {
         Book borrowedBook = null;
         for (Book book : listaLibri) {
@@ -34,7 +34,7 @@ public class Library {
         return borrowedBook;
     }
 
-    //metodo che cambia la disponibiltà di un titolo in vero(true)
+    // metodo che cambia la disponibiltà di un titolo in vero(true)
     Book returnBook(String title) {
         Book returnedBook = null;
         for (Book book : listaLibri) {
@@ -46,18 +46,35 @@ public class Library {
         return returnedBook;
     }
 
-    //metodo che stampa in console se l'input cercato è presente come autore o come libro
-    void searchBook(String input) {
+    // metodo che stampa in console se l'input cercato è presente come autore o come
+    // libro
+    Book searchBook(String title) {
+        Book selectedBook = null;
         for (Book book : listaLibri) {
-            if (book.title.equals(input)) {
-                System.out.println("Il libro è disponibile!");
+            if (book.title.equals(title)) {
+                selectedBook = book;
             }
         }
+
+        return selectedBook;
+    }
+
+    void searchAuthor(String author) {
         for (Book book : listaLibri) {
-            if (book.author.equals(input)) {
+            if (book.author.equals(author)) {
                 System.out.println("Autore trovato");
                 book.displayBookInfo();
             }
         }
+    }
+
+    // metodo per simulare il passaggio di un determinato numero di giorni
+    void passanoTotGiorni(int numeroGiorni) {
+        for (Book book : listaLibri) {
+            if (!book.isAvailable) {
+                book.daysBorrowed += numeroGiorni;
+            }
+        }
+        System.out.println("Sono passati " + numeroGiorni +" giorni");
     }
 }

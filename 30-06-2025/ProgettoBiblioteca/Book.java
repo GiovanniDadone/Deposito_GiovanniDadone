@@ -10,21 +10,16 @@ public class Book {
         this.author = author;
     }
 
+    //metodo per stampare su terminale le informazioni di un libro formattate 
     void displayBookInfo() {
         System.out.println("Titolo: " + title + "\n"
                 + "Autore: " + author + "\n"
                 + "Disponibile: " + disponibilità());
     }
 
+    //metodo di utility per stampare in maniera intelligibile la disponibilità di un libro
     String disponibilità() {
-        return (isAvailable) ? "Disponibile" : "Non disponibile";
+        return (isAvailable) ? "Disponibile" : "Preso in pestito";
     }
 
-    void registerBorrowingUser(User user) {
-        this.borrowingUser = user;
-    }
-
-    void registerBorrowingDate() {
-
-    }
 }
