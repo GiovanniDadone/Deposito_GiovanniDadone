@@ -62,6 +62,8 @@ public class EsercizioEreditarietà {
                     for (Animale animale : zoo) {
                         System.out.println("Tipo di Animale: " + animale.getClass().getSimpleName() + ", Nome: "
                                 + animale.getNome() + ", Anni: " + animale.getEtà());
+                        animale.faiVerso();
+                        System.out.println("------------------------------------------");
                     }
                     break;
 
@@ -78,8 +80,8 @@ public class EsercizioEreditarietà {
         scannerStringhe.close();
     }
 
-
-    //servizi utilitari per la creazione di oggetti entrambi figli della classe Animale
+    // servizi utilitari per la creazione di oggetti entrambi figli della classe
+    // Animale
     public static Gatto creaGatto(String nome, int anni) {
         return new Gatto(nome, anni);
     }
@@ -89,8 +91,7 @@ public class EsercizioEreditarietà {
     }
 }
 
-
-//classe animale con variabili private e getter e setter pubblici
+// classe animale con variabili private e getter e setter pubblici
 class Animale {
     private String nome;
     private int età;
@@ -122,8 +123,7 @@ class Animale {
 
 }
 
-
-//classe Cane  con costruttore super
+// classe Cane con costruttore super
 class Cane extends Animale {
 
     public Cane(String nome, int età) {
@@ -136,8 +136,7 @@ class Cane extends Animale {
 
 }
 
-
-//classe gatto con costruttore che sfrutta il super
+// classe gatto con costruttore che sfrutta il super
 class Gatto extends Animale {
 
     public Gatto(String nome, int età) {
