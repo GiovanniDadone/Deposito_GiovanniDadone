@@ -32,7 +32,7 @@ public class EsercizioGestioneHotel {
                 
                 case 2:
                     // Case 2 logic
-                    for (Room camera : args) {
+                    for (Room camera : radisson.getCamere()) {
                         
                     }
                     break;
@@ -145,10 +145,27 @@ class Hotel {
         System.out.println("Camera aggiunta: ");
         cameraNuova.dettagli();
     }
+    
 
     @Override
     public String toString() {
         return "Hotel [nome=" + nome + ", camere=" + camere + "]";
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public ArrayList<Room> getCamere() {
+        return camere;
+    }
+
+    public void setCamere(ArrayList<Room> camere) {
+        this.camere = camere;
     }
 
     
