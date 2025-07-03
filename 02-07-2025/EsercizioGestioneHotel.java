@@ -38,7 +38,13 @@ public class EsercizioGestioneHotel {
                     float prezzoCamera = scannerFloat.nextFloat();
                     System.out.println("Sarà una suite (maggiorazione del prezzo di 200$)? si/no");
                     String choice = stringScanner.nextLine();
-                    radisson.addRoom(numeroCamera, prezzoCamera, choice);
+                    String extra = "";
+                    if (choice.equalsIgnoreCase("si")) {
+                        System.out.println("Definisci i servizi extra");
+                        extra = stringScanner.nextLine();
+                    }
+
+                    radisson.addRoom(numeroCamera, prezzoCamera, choice, extra);
                     break;
 
                 case 2:
@@ -177,18 +183,21 @@ class Hotel {
     // metodo che aggiunge una Room all'arrayList dell'oggetto Hotel, passando gli
     // argomenti del metodo come parametri dei costruttori richiamati e la String
     // extra permette di aggiungere una String inizializzata al costruttore di Suite
-    public void addRoom(int number, float price, String extra) {
+    public void addRoom(int number, float price, String choice, String extra) {
         Room cameraNuova;
-        if (extra.equalsIgnoreCase("si")) {
-            cameraNuova = new Suite(number, price, extra);
-
+        Suite suiteNuova;
+        if (choice.equalsIgnoreCase("si")) {
+            suiteNuova = new Suite(number, price, extra);
+            camere.addFirst(suiteNuova);
+            System.out.println("Camera aggiunta: ");
+            suiteNuova.dettagli();
         } else {
             cameraNuova = new Room(number, price);
-
+            camere.add(cameraNuova);
+            System.out.println("Camera aggiunta: ");
+            cameraNuova.dettagli();
         }
-        camere.add(cameraNuova);
-        System.out.println("Camera aggiunta: ");
-        cameraNuova.dettagli();
+
     }
 
     @Override
@@ -196,7 +205,7 @@ class Hotel {
         return "Hotel [nome=" + nome + ", camere=" + camere + "]";
     }
 
-    //getter e setter d'ordinanza
+    // getter e setter d'ordinanza
     public String getNome() {
         return nome;
     }
