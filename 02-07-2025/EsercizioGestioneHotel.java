@@ -69,6 +69,10 @@ public class EsercizioGestioneHotel {
             }
 
         }
+
+        scannerFloat.close();
+        scannerInt.close();
+        stringScanner.close();
     }
 
     // metodo statico che conta il numero di camere nell'arrayList di camere e lo
