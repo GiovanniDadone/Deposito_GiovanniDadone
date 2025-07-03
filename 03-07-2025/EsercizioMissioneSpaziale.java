@@ -15,6 +15,7 @@ public class EsercizioMissioneSpaziale {
 
         boolean continua = true;
         while (continua) {
+            //il metodo ritorna false solo quando si seleziona l'opzione di uscita
             continua = mostraMenuPrincipale();
         }
 
@@ -35,17 +36,21 @@ public class EsercizioMissioneSpaziale {
 
         switch (scelta) {
             case 1:
+            //invocazione del metodo per creare un astronauta
                 creaAstronauta();
                 break;
             case 2:
+            //visualizza i dati di un particolare astronauta
                 visualizzaDatiAstronauta();
                 break;
             case 3:
+            //chiama la funzione di accesso come condizione dell'if per aprire o meno il menù del singolo astronauta
                 if (effettuaLogin()) {
                     menuAstronauta();
                 }
                 break;
             case 4:
+            //ritorna false, esce dal loop nel main e chiude il programma
                 return false;
             default:
                 System.out.println("Opzione non valida!");
@@ -197,7 +202,7 @@ public class EsercizioMissioneSpaziale {
                     break;
                 case 3:
                     if (astronautaCorrente instanceof IspettoreEsperto) {
-                        ((IspettoreEsperto) astronautaCorrente).stampaValutazioniIspezioni();
+                        ((IspettoreEsperto) astronautaCorrente).stampaValutazioniIspezioni(stazione);
                     } else {
                         return false; // Logout
                     }
@@ -391,8 +396,8 @@ class IspettoreEsperto extends Ispettore {
         super(nome, email);
     }
 
-    public void stampaValutazioniIspezioni() {
-        ArrayList<Integer> valutazioni = getStazioneSpaziale().getValutazioni();
+    public void stampaValutazioniIspezioni(StazioneSpaziale stazione) {
+        ArrayList<Integer> valutazioni = stazione.getValutazioni();
         for (int i = 0; i < valutazioni.size(); i++) {
             System.out.println("Esperimento #" + i + ": " + valutazioni.get(i));
         }
@@ -452,7 +457,7 @@ class StazioneSpaziale {
         int index = ciurma.indexOf(vecchio);
         if (index != -1) {
             ciurma.set(index, nuovo);
-        }
+        } 
     }
 
     public void aggiungiAstronauta(Astronauta astronauta) {
