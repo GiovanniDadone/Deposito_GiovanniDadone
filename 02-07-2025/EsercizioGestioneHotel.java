@@ -34,9 +34,9 @@ public class EsercizioGestioneHotel {
                     // raccolta variabili per inizializzare la camera da aggiungere
                     System.out.println("Inserisci il numero della camera");
                     int numeroCamera = scannerInt.nextInt();
-                    System.out.println("Che prezzo ha la nuova camera ()");
+                    System.out.println("Che prezzo ha la nuova camera");
                     float prezzoCamera = scannerFloat.nextFloat();
-                    System.out.println("Sarà una suite (maggiorazione del prezzo di 200$)? si/no");
+                    System.out.println("Sarà una suite (maggiorazione del prezzo di 50$)? si/no");
                     String choice = stringScanner.nextLine();
                     String extra = "";
                     if (choice.equalsIgnoreCase("si")) {
@@ -60,7 +60,6 @@ public class EsercizioGestioneHotel {
 
                 case 3:
                     // stampa del numero di camere tramite metodo statico
-                    System.out.println("Numero di camere: ");
                     contaCamere(radisson.getCamere());
                     break;
 
@@ -73,7 +72,7 @@ public class EsercizioGestioneHotel {
                 default:
                     System.out.println("Scelta non valida!");
             }
-
+            System.out.println("==================================");
         }
 
         scannerFloat.close();
@@ -102,7 +101,6 @@ class Room {
     public void dettagli() {
         System.out.println("Tipo camera: " + this.getClass().getSimpleName() + ", Numero camera: " + roomNumber
                 + ", Prezzo camera: " + price + "$/per notte");
-        System.out.println("----------------------------");
     }
 
     // metodo overloadato di dettagli() che implicitamente usa il metodo non
@@ -111,7 +109,7 @@ class Room {
         if (conPrezzo) {
             this.dettagli();
         } else {
-            System.out.println("Tipo camera: " + this.getClass().getSimpleName() + "Numero camera: " + roomNumber);
+            System.out.println("Tipo camera: " + this.getClass().getSimpleName() + ", Numero camera: " + roomNumber);
         }
         System.out.println("----------------------------");
     }
@@ -154,7 +152,7 @@ class Suite extends Room {
 
     // setter che aumenta il costo della camera
     public void setExtraServices(String extraServices) {
-        this.setPrice(getPrice() + 200f);
+        this.setPrice(getPrice() + 50f);
         this.extraServices = extraServices;
     }
 
@@ -190,7 +188,7 @@ class Hotel {
         Suite suiteNuova;
         if (choice.equalsIgnoreCase("si")) {
             suiteNuova = new Suite(number, price, extra);
-            camere.addFirst(suiteNuova);
+            camere.add(suiteNuova);
             System.out.println("Camera aggiunta: ");
             suiteNuova.dettagli();
         } else {
