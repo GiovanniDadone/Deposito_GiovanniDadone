@@ -21,7 +21,7 @@ public class EsercizioGestioneHotel {
                     Che cosa vuoi fare?
                     1. Aggiungi camera
                     2. Mostra tutte le camere
-                    3. Stampa il numero ttoale di camere
+                    3. Stampa il numero totale di camere
                     4. Esci dal programma
                     """);
 
@@ -100,8 +100,9 @@ class Room {
     // metodo che stampa i dettagli di una camera a partire dalle sue variabili + il
     // nome della classe
     public void dettagli() {
-        System.out.println("Tipo camera: " + this.getClass().getSimpleName() + "Numero camera: " + roomNumber
+        System.out.println("Tipo camera: " + this.getClass().getSimpleName() + ", Numero camera: " + roomNumber
                 + ", Prezzo camera: " + price + "$/per notte");
+        System.out.println("----------------------------");
     }
 
     // metodo overloadato di dettagli() che implicitamente usa il metodo non
@@ -112,6 +113,7 @@ class Room {
         } else {
             System.out.println("Tipo camera: " + this.getClass().getSimpleName() + "Numero camera: " + roomNumber);
         }
+        System.out.println("----------------------------");
     }
 
     // getter e setter d'ordinanza
