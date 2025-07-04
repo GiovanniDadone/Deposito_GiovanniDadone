@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class EsercizioDelivery {
     public static Scanner stringScanner = new Scanner(System.in);
     public static Scanner intScanner = new Scanner(System.in);
