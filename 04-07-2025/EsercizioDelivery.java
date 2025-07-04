@@ -6,7 +6,43 @@ public class EsercizioDelivery {
     public static Scanner intScanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        ConsegnaManager azienda = new ConsegnaManager();
 
+        boolean inputValido = false;
+        while (!inputValido) {
+            displayMenu();
+            // Display menu logic
+            int scelta = intScanner.nextInt();
+
+            switch (scelta) {
+                case 1:
+                    azienda.aggiungiVeicolo(stringScanner);
+                    // Case 1 logic
+                    break;
+
+                case 2:
+                    azienda.statoOrdine(intScanner, stringScanner);
+                    // Case 2 logic
+                    break;
+
+                case 3: // Exit
+                    inputValido = true;
+                    // Optional return
+                    break;
+
+                default:
+                    System.out.println("Scelta non valida!");
+            }
+
+            // Pause logic
+        }
+    }
+
+    public static void displayMenu() {
+        System.out.println("""
+                1. Aggiungi un veicolo
+                2. Informazioni mobilità
+                    """);
     }
 
 }
@@ -114,27 +150,33 @@ class ConsegnaManager {
         }
     }
 
-    public void statoOrdine(Scanner intScanner) {
+    public void statoOrdine(Scanner intScanner, Scanner stringScanner) {
         System.out.println("""
                 Scegli cosa vuoi sapere dell'ordine:
-                1. Stato spedizione
-                2. Dati del veicolo
+                1. Dati dei veicoli
+                2. Stato spedizione
                 3. Ritorna al menù principale
                 """);
         int scelta = intScanner.nextInt();
         while (true) {
             if (scelta == 1) {
-                System.out.println("Scegli la spedizione da tracciare");
+                System.out.println("Scegli il veicolo di cui conoscere i dati");
                 for (int i = 0; i < listaVeicoli.size(); i++) {
-                    System.out.print(i + 1 + " ");
-                    listaVeicoli.get(i).stampaInfo();
+                    System.out.print(i + 1 + " " + listaVeicoli.get(i).getClass().getSimpleName());
                 }
                 int scelta2 = intScanner.nextInt();
-                listaVeicoli.get(scelta2);
+                listaVeicoli.get(scelta2).stampaInfo();
             } else if (scelta == 3) {
                 break;
             } else if (scelta == 2) {
-
+                System.out.println("Scegli la destinazione decisa: ");
+                String destinazione = stringScanner.nextLine();
+                System.out.println("Scegli la spedizione da tracciare");
+                for (int i = 0; i < listaVeicoli.size(); i++) {
+                    System.out.print(i + 1 + " " + listaVeicoli.get(i).getClass().getSimpleName());
+                }
+                int scelta2 = intScanner.nextInt();
+                listaVeicoli.get(scelta2).consegnaPacco(destinazione);
             } else {
                 System.out.println("Operazione non riconosciuta");
             }
