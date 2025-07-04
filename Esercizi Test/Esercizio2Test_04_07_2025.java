@@ -39,6 +39,8 @@ public class Esercizio2Test_04_07_2025 {
             }
 
         }
+        scannerInt.close();
+        stringScanner.close();
     }
 
 }

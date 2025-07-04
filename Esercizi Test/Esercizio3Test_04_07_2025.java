@@ -73,7 +73,7 @@ class CadettoDottore extends Cadetto {
 
     @Override
     void faiAzioneSpeciale() {
-        System.out.println("Stocurando le persone!");
+        System.out.println("Sto curando le persone!");
     }
 
     public String getSpecializzazione() {
