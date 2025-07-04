@@ -38,7 +38,6 @@ public class Esercizio2Test_04_07_2025 {
                     break;
             }
 
-            // Pause logic
         }
     }
 
@@ -70,6 +69,7 @@ class ContoBancario {
 
     public void deposita(double importo) {
 
+        //conrtollo deposito effettivamente positivo
         if (importo > 0) {
             System.out.println("Hai depositato: " + importo);
         } else {
@@ -78,6 +78,9 @@ class ContoBancario {
     }
 
     public void preleva(double importo) {
+
+
+        //conrtollo prelievo positovo e minore del saldo attuale
         if (importo > 0 && importo < getSaldo()) {
             System.out.println("Hai prelevato: " + importo);
         } else {
