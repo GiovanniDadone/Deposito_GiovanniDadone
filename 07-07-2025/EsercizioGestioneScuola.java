@@ -102,11 +102,9 @@ class Studente extends Persona implements Registrabile {
 
     @Override
     public String toString() {
-        return "Studente [Nome: " + getNome() + ", Età: " 
+        return "Studente [Nome: " + getNome() + ", Età: "
                 + getEtà() + "]";
     }
-
-    
 
 }
 
@@ -140,7 +138,7 @@ class Docente extends Persona implements Registrabile {
 
     @Override
     public String toString() {
-        return "Docente [Nome: " + getNome() + ", Età: " 
+        return "Docente [Nome: " + getNome() + ", Età: "
                 + getEtà() + "]";
     }
 }
@@ -158,12 +156,18 @@ class GestioneScuola {
             persona.descriviRuolo();
 
             // casto la persona a registrabile (senza controllo di "instanceof Registrabile"
-            // giusto perchè so che posso avere solo quel tipo di interfaccia, in un programma vero avrei prima fatto i dovuti controlli)
+            // giusto perchè so che posso avere solo quel tipo di interfaccia, in un
+            // programma vero avrei prima fatto i dovuti controlli)
             Registrabile registrabile = (Registrabile) persona;
 
             // ogni registrabile eseguirà sempre per polimorfismo il suo metodo
             // registrazione()
             registrabile.registrazione();
+
+            // aggiunto dopo aver visto la correzione di Mirko (molto più corto e facile,
+            // senza dover prima dichiarare un'altra variabile , casti direttamente)
+            // vale sermpre il ragionamento in cui non sto usando instanceof Studente o Docente 
+            ((Registrabile) persona).registrazione();
 
             System.out.println("=====================================");
         }
