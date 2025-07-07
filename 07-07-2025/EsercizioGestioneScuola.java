@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class EsercizioGestioneScuola {
 
@@ -16,24 +17,30 @@ public class EsercizioGestioneScuola {
             System.out.println("3. Stampa i dati di ogni persona");
             System.out.println("Esci dal programma");
 
-            int scelta = GlobalScanner.readIntInput();
-
-            switch (scelta) {
-                case 1:
-                    scuola.aggiungiStudente();
-                    break;
-                case 2:
-                    scuola.aggiungiDocente();
-                    break;
-                case 3:
-                    scuola.stampaInfo();
-                    break;
-                case 4: // Exit
-                    inputValido = true;
-                    break;
-                default:
-                    System.out.println("Scelta non valida!");
+            try {
+                int scelta = GlobalScanner.readIntInput();
+                switch (scelta) {
+                    case 1:
+                        scuola.aggiungiStudente();
+                        break;
+                    case 2:
+                        scuola.aggiungiDocente();
+                        break;
+                    case 3:
+                        scuola.stampaInfo();
+                        break;
+                    case 4: // Exit
+                        inputValido = true;
+                        break;
+                    default:
+                        System.out.println("Scelta non valida!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("******INPUT VUOTO O NON VALIDO, RITENTA******");
+                GlobalScanner.clearIntBuffer();
+                continue;
             }
+
         }
 
         GlobalScanner.CloseScannerInputs();
@@ -166,7 +173,8 @@ class GestioneScuola {
 
             // aggiunto dopo aver visto la correzione di Mirko (molto più corto e facile,
             // senza dover prima dichiarare un'altra variabile , casti direttamente)
-            // vale sermpre il ragionamento in cui non sto usando instanceof Studente o Docente 
+            // vale sermpre il ragionamento in cui non sto usando instanceof Studente o
+            // Docente
             ((Registrabile) persona).registrazione();
 
             System.out.println("=====================================");
@@ -179,25 +187,56 @@ class GestioneScuola {
     // richiesta per docente
     public void aggiungiDocente() {
 
-        System.out.println("Inserisci il nome:");
-        String nome = GlobalScanner.readStringInput();
-        System.out.println("Inserisci l'età:");
-        int età = GlobalScanner.readIntInput();
-        System.out.println("Inserisci la materia insegnata:");
-        String materia = GlobalScanner.readStringInput();
+        // aggiunto un ciclo while che innesta un try/catch, se gli input sono vuoti
+        // lancia una exception e
+        while (true) {
+            try {
+                System.out.println("Inserisci il nome: ");
+                String nome = GlobalScanner.readStringInput();
+                if (nome.isEmpty() || nome.isBlank()) {
+                    throw new InputMismatchException();
+                }
+                System.out.println("Inserisci l'età: ");
+                int età = GlobalScanner.readIntInput();
+                System.out.println("Inserisci la materia insegnata:");
+                String materia = GlobalScanner.readStringInput();
+                if (materia.isEmpty() || materia.isBlank()) {
+                    throw new InputMismatchException();
+                }
 
-        corpoScolastico.add(new Docente(nome, età, materia));
+                corpoScolastico.add(new Docente(nome, età, materia));
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("******INPUT VUOTO O NON VALIDO, RITENTA******");
+                continue;
+            }
+        }
     }
 
     // richiesta per studente
     public void aggiungiStudente() {
-        System.out.println("Inserisci il nome: ");
-        String nome = GlobalScanner.readStringInput();
-        System.out.println("Inserisci l'età: ");
-        int età = GlobalScanner.readIntInput();
-        System.out.println("Inserisci la classe che frequenta:");
-        String classe = GlobalScanner.readStringInput();
+        while (true) {
+            try {
+                System.out.println("Inserisci il nome: ");
+                String nome = GlobalScanner.readStringInput();
+                if (nome.isEmpty() || nome.isBlank()) {
+                    throw new InputMismatchException();
+                }
+                System.out.println("Inserisci l'età: ");
+                int età = GlobalScanner.readIntInput();
+                System.out.println("Inserisci la classe che frequenta:");
+                String classe = GlobalScanner.readStringInput();
+                if (classe.isEmpty() || classe.isBlank()) {
+                    throw new InputMismatchException();
+                }
 
-        corpoScolastico.add(new Studente(nome, età, classe));
+                corpoScolastico.add(new Studente(nome, età, classe));
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("******INPUT VUOTO O NON VALIDO, RITENTA******");
+                continue;
+            }
+        }
+
     }
 }
