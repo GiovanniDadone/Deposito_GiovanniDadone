@@ -32,8 +32,8 @@ public class DatabaseManager {
 
         // se l'oggetto utilizzato è sempre lo stesso, richiamando getCount due volte di
         // consecutiva da due chiamate di getInstance() differenti dovrebbe darci lo
-        // stesso numero
-        // di connesioni
+        // stesso numero di connessioni in quanto metodo privato accessibile solo
+        // tramite istanza
         System.out.println(DatabaseManager.getInstance().getCount());
         System.out.println(DatabaseManager.getInstance().getCount());
 
