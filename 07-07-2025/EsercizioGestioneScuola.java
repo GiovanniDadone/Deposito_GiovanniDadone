@@ -157,8 +157,8 @@ class GestioneScuola {
             // tipo di cui fa parte effettivamente l'oggetto
             persona.descriviRuolo();
 
-            // casto la persona a registrabile (senza controllo di instaof Registrabile
-            // giusto perchè so che posso avere solo quel tipo di interfaccia)
+            // casto la persona a registrabile (senza controllo di "instanceof Registrabile"
+            // giusto perchè so che posso avere solo quel tipo di interfaccia, in un programma vero avrei prima fatto i dovuti controlli)
             Registrabile registrabile = (Registrabile) persona;
 
             // ogni registrabile eseguirà sempre per polimorfismo il suo metodo
