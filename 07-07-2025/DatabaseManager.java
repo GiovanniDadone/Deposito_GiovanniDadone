@@ -12,13 +12,13 @@ public class DatabaseManager {
         return manager;
     }
 
-    static void connect() {
+    public void connect() {
         count++;
         System.out.println("Connessione stabilita. Connessioni attive: " + getCount());
 
     }
 
-    static int getCount() {
+    public int getCount() {
         return count;
     }
 }
