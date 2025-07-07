@@ -15,7 +15,7 @@ public class EsercizioGestioneScuola {
             System.out.println("1. Aggiungi uno studente");
             System.out.println("2. Aggiungi un docente");
             System.out.println("3. Stampa i dati di ogni persona");
-            System.out.println("Esci dal programma");
+            System.out.println("4. Esci dal programma");
 
             try {
                 int scelta = GlobalScanner.readIntInput();
