@@ -3,5 +3,6 @@ public class EsercizioSingleton {
         System.out.println("Controlliamo se sono lo stesso oggetto");
         System.out.println(Logger.getInstance().equals(Logger.getInstance()));
         System.out.println(Logger.getInstance()==Logger.getInstance());
+        //in entrambi i casi stampa true quindi sono lo stesso oggetto chiamato in due momenti diversi
     }
 }
