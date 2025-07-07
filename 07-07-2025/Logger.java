@@ -1,4 +1,7 @@
 // Definizione della classe Logger come singleton
+
+import java.time.LocalDateTime;
+
 public class Logger {
     // Istanza privata statica della classe Logger
     private static Logger instance;
@@ -20,6 +23,6 @@ public class Logger {
 
     // Metodo per stampare un messaggio di log
     public void scriviMessaggio(String msg) {
-        System.out.println("[LOG] " + msg);
+        System.out.println("[LOG] " + LocalDateTime.now() + " " + msg);
     }
 }
