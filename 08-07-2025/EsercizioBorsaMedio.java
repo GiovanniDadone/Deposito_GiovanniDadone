@@ -64,8 +64,7 @@ class AgenziaBorsa {
     private static String azione;
 
     // costruttore privato per implementare il singleton pattern
-    private AgenziaBorsa() {
-    };
+    private AgenziaBorsa() {};
 
     // getInstance() che inizializza si instance che l'arrayList
     public static AgenziaBorsa getInstance() {
