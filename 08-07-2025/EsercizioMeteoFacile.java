@@ -18,7 +18,7 @@ public class EsercizioMeteoFacile {
             meteo.setTemperature(scelta);
             counter++;
         }
-
+        floatScanner.close();
     }
 
 }
