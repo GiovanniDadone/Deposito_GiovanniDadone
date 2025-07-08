@@ -8,20 +8,20 @@ public class EsercizioHamburgerDecorator {
         Hamburger decoratore1 = new FormaggioDecorator(burgerbase);
         Hamburger decoratore2 = new BaconDecorator(decoratore1);
 
-        GestorePrezzi gestore = new GestorePrezzi();
-        gestore.registraDecoratore((PrezziObserver) decoratore1);
-        gestore.registraDecoratore((PrezziObserver) decoratore2);
+        GestorePrezzi gestorePrezzi = new GestorePrezzi();
+        gestorePrezzi.registraDecoratore((PrezziObserver) decoratore1);
+        gestorePrezzi.registraDecoratore((PrezziObserver) decoratore2);
 
-        GestoreOrdine.getInstance();
-        GestoreOrdine.aggiungiOrdine(decoratore1);
-        GestoreOrdine.aggiungiOrdine(decoratore2);
-        GestoreOrdine.aggiungiOrdine(burgerbase);
+        GestoreOrdine gestoreOrdini = GestoreOrdine.getInstance();
+        gestoreOrdini.aggiungiOrdine(decoratore1);
+        gestoreOrdini.aggiungiOrdine(decoratore2);
+        gestoreOrdini.aggiungiOrdine(burgerbase);
 
-        GestoreOrdine.displayOrdini();
+        gestoreOrdini.displayOrdini();
 
-        gestore.setState(0.30, 0.40);
+        gestorePrezzi.setState(0.30, 0.40);
 
-        GestoreOrdine.displayOrdini();
+        gestoreOrdini.displayOrdini();
     }
 }
 
@@ -167,33 +167,35 @@ class BaconDecorator extends DecoratoreAggiunteBurger implements PrezziObserver 
 
 // gestore ordine con pattern singleton
 class GestoreOrdine {
-    private static ArrayList<Hamburger> listaOrdini = null;
+    private static GestoreOrdine gestore;
+    private ArrayList<Hamburger> listaOrdini = null;
 
     // costruttore privato vuoto
     private GestoreOrdine() {
+        listaOrdini = new ArrayList<>();
     }
 
-    // getInstance per inizializzare l'arrayList, che è sempre una
-    public static ArrayList<Hamburger> getInstance() {
-        if (listaOrdini == null) {
-            listaOrdini = new ArrayList<>();
+    // getInstance statico per inizializzare l'arrayList tramite il richiamo del
+    // costruttore
+    public static GestoreOrdine getInstance() {
+        if (gestore == null) {
+            gestore = new GestoreOrdine();
         }
-        return listaOrdini;
+        return gestore;
     }
 
-    // metodo statico per aggiungere un Hamburger all'ordine
-    public static void aggiungiOrdine(Hamburger burger) {
+    // metodo per aggiungere un Hamburger all'ordine
+    public void aggiungiOrdine(Hamburger burger) {
         listaOrdini.add(burger);
     }
 
-    // metodo statico per rimuovere un Hamburger all'ordine
-    public static void rimuoviOrdine(Hamburger burger) {
+    // metodo per rimuovere un Hamburger all'ordine
+    public void rimuoviOrdine(Hamburger burger) {
         listaOrdini.remove(burger);
     }
 
-
-    //metodo per fare la stampa in console di tutti gli ordini
-    public static void displayOrdini() {
+    // metodo per fare la stampa in console di tutti gli ordini
+    public void displayOrdini() {
         for (Hamburger hamburger : listaOrdini) {
             System.out.println(hamburger.getDescrizione() + " " + hamburger.getPrezzo());
         }
