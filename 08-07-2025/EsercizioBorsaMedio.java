@@ -7,10 +7,10 @@ public class EsercizioBorsaMedio {
         Scanner doubleScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
 
-        AgenziaBorsa agenzia = new AgenziaBorsa();
+        
 
-        agenzia.aggiungiInvestitore(new InvestitoreBancario("Paolo"));
-        agenzia.aggiungiInvestitore(new InvestitorePrivato("Carlo"));
+        AgenziaBorsa.aggiungiInvestitore(new InvestitoreBancario("Paolo"));
+        AgenziaBorsa.aggiungiInvestitore(new InvestitorePrivato("Carlo"));
 
         int counter = 0;
         while (counter < 3) {
@@ -19,7 +19,7 @@ public class EsercizioBorsaMedio {
             System.out.println("Scegli il nuovo valore");
             double valore = doubleScanner.nextDouble();
 
-            agenzia.aggiornaValoreAzione(nome, valore);
+            AgenziaBorsa.aggiornaValoreAzione(nome, valore);
 
             counter++;
         }
@@ -34,25 +34,35 @@ interface Investitore {
 }
 
 class AgenziaBorsa {
-    private ArrayList<Investitore> listaInvestitore = new ArrayList<>();
-    private double valore;
-    private String azione;
+    private static AgenziaBorsa instance = null;
+    private static ArrayList<Investitore> listaInvestitore = new ArrayList<>();
+    private static double valore;
+    private static String azione;
 
-    public void aggiungiInvestitore(Investitore investitore) {
+    private AgenziaBorsa() {};
+
+    public static AgenziaBorsa getInstance() {
+        if (instance == null) {
+            instance = new AgenziaBorsa();
+        }
+        return instance;
+    }
+
+    public static void aggiungiInvestitore(Investitore investitore) {
         listaInvestitore.add(investitore);
     }
 
-    public void rimuoviInvestitore(Investitore investitore) {
+    public static void rimuoviInvestitore(Investitore investitore) {
         listaInvestitore.remove(investitore);
     }
 
-    public void aggiornaValoreAzione(String nomeAzione, double valoreAzione) {
-        this.valore = valoreAzione;
-        this.azione = nomeAzione;
+    public static  void aggiornaValoreAzione(String nomeAzione, double valoreAzione) {
+        valore = valoreAzione;
+        azione = nomeAzione;
         notificaInvestitori();
     }
 
-    public void notificaInvestitori() {
+    private static void notificaInvestitori() {
         for (Investitore investitore : listaInvestitore) {
             investitore.notifica(azione, valore);
         }
