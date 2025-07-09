@@ -8,6 +8,42 @@ public class EsercizioStrategy2 {
         // apertura scanner per l'input dell'utente
         Scanner intScanner = new Scanner(System.in);
 
+        // lista dell'ordine di canne da pesca
+        ArrayList<Prodotto> ordine = new ArrayList<>();
+
+        ControllorePrezzi control = new ControlloreConcreto();
+        control.registraProdotto(new CannaConMulinello());
+        control.registraProdotto(new CannaDaSuperfice());
+        control.registraProdotto(new CannaDaConEsca());
+
+        // ciclo per la richiesta di prodotti
+        while (true) {
+            System.out.println("Che prodotto vuoi comprare?");
+            System.out.println("1. Canna da pesca con mulinello");
+            System.out.println("2. Canna da pesca da superficie");
+            System.out.println("3. Canna da pesca con esca");
+            int cannaScelta = intScanner.nextInt();
+            switch (cannaScelta) {
+                case 1:
+                    ordine.add(new CannaConMulinello());
+                    break;
+                case 2:
+                    ordine.add(new CannaDaSuperfice());
+                    break;
+                case 3:
+                    ordine.add(new CannaDaConEsca());
+                    break;
+                default:
+                    break;
+            }
+            System.out.println("Vuoi completare l'ordine e proseguire col pagamento? 1. si/ 2. no");
+            int uscitaOrdine = intScanner.nextInt();
+            if (uscitaOrdine == 1) {
+                break;
+            }
+            control.setTotale();
+        }
+
         // ciclo per chiedere che tipo di strategia adottare
         while (true) {
             System.out.println("Con che metodo di pagamento vuoi procedere?");
@@ -20,29 +56,16 @@ public class EsercizioStrategy2 {
             // scelta dell'importo condizionale alla presenza o meno di una strategia
 
             if (ConnessionePagamento.getStrategy() != null) {
-                int importo = 0;
-                System.out.println("Quant'è l'importo?");
-
-                // try/catch per gestire che l'importo sia effettivamente un numero
-                try {
-                    // ricezione dell'input dall'utente
-                    importo = intScanner.nextInt();
-                    // esecuzione del pagamento
-                    context.performTask(importo);
-                } catch (InputMismatchException e) {
-                    // porta direttamente alla richiesta di ricominciare o meno
-                    System.out.println("Non è un numero,riprova");
-                }
-
+                // esecuzione del pagamento
+                context.performTask(control.getTotale());
             } else {
-
                 // se la strategia scelta non è valida, ricomincia il ciclo passando dal check
                 // per ricominciare
                 System.out.println("Metodo di pagamento non scelto, riprovare");
             }
 
             // check condizoinale per ricominciare il loop o uscirne
-            System.out.println("Vuoi ricominciare? 1.si 2.no");
+            System.out.println("Vuoi comprare un alrto prodotto? 1.si 2.no");
             int uscita = intScanner.nextInt();
             if (uscita == 2) {
                 break;
@@ -144,11 +167,16 @@ interface ControllorePrezzi {
     void rimuoviProdotto(Prodotto o);
 
     void notificaCambioPrezzi();
+
+    void setTotale();
+
+    int getTotale();
 }
 
 class ControlloreConcreto implements ControllorePrezzi {
     private List<Prodotto> observers = new ArrayList<>();
     private int prezzo;
+    private int totale;
 
     public void setState(int prezzo) {
         this.prezzo = prezzo;
@@ -171,6 +199,19 @@ class ControlloreConcreto implements ControllorePrezzi {
             observer.update(prezzo);
         }
     }
+
+    public int getTotale() {
+        return totale;
+    }
+
+    public void setTotale() {
+        int totale = 0;
+        for (Prodotto prodotto : observers) {
+            totale += ((CannaDaPesca) prodotto).getPrezzoProdotto();
+        }
+        this.totale = totale;
+    }
+
 }
 
 abstract class CannaDaPesca implements Prodotto {
@@ -203,8 +244,8 @@ abstract class CannaDaPesca implements Prodotto {
 
 class CannaConMulinello extends CannaDaPesca {
 
-    public CannaConMulinello(String name) {
-        super(name);
+    public CannaConMulinello() {
+        super("Canna con mulinello");
         maggiorazione();
     }
 
@@ -214,35 +255,48 @@ class CannaConMulinello extends CannaDaPesca {
 
     @Override
     public void update(int prezzo) {
-        // TODO Auto-generated method stub
         super.update(prezzo);
+        System.out.println("Prezzo aggiornato per: " + getName());
     }
-    
 
 }
 
 class CannaDaSuperfice extends CannaDaPesca {
 
-    public CannaDaSuperfice(String name) {
-        super(name);
+    public CannaDaSuperfice() {
+        super("Canna da superficie");
         maggiorazione();
     }
 
     public void maggiorazione() {
         setPrezzo(this.getPrezzoProdotto() + 12);
+    }
+
+    @Override
+    public void update(int prezzo) {
+        super.update(prezzo);
+        System.out.println("Prezzo aggiornato per: " + getName());
+
     }
 
 }
 
 class CannaDaConEsca extends CannaDaPesca {
 
-    public CannaDaConEsca(String name) {
-        super(name);
+    public CannaDaConEsca() {
+        super("Canna con esca");
         maggiorazione();
     }
 
     public void maggiorazione() {
         setPrezzo(this.getPrezzoProdotto() + 12);
+    }
+
+    @Override
+    public void update(int prezzo) {
+        super.update(prezzo);
+        System.out.println("Prezzo aggiornato per: " + getName());
+
     }
 
 }
