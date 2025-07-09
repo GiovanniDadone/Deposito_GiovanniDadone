@@ -58,10 +58,12 @@ interface MetodoDiPagamento {
     void eseguiPagamento(double importo);
 }
 
+// classe base astratta del Decorator Patern alla quale le due strategie si
+// implementano come decoratori in tutto e per tutto
 abstract class PagamentoAstratto implements MetodoDiPagamento {
     @Override
     public void eseguiPagamento(double importo) {
-        System.out.println("Pagamento eseguito || Importo: " + importo);
+        System.out.println("Pagamento eseguito || Importo: " + importo + "€");
     }
 
 }
@@ -71,6 +73,7 @@ class CartaDiCredito extends PagamentoAstratto {
     @Override
     // l'importo è passato direttamente dal main
     public void eseguiPagamento(double importo) {
+        // richiamo del metodo super della classe astratta
         super.eseguiPagamento(importo);
         System.out.println("Metodo di Pagamento: Carta di Credito");
     }
@@ -80,6 +83,7 @@ class PayPal extends PagamentoAstratto {
     @Override
     // l'importo è passato direttamente dal main
     public void eseguiPagamento(double importo) {
+        // richiamo del metodo super della classe astratta
         super.eseguiPagamento(importo);
         System.out.println("Metodo di Pagamento: PayPal");
     }
@@ -116,6 +120,8 @@ class PagamentoContext {
         return context;
     }
 
+    // performTask() come da programma non si cura di quale sia la strategia
+    // implementata, semplicemente esegue la task della strategia
     public void performTask(double importo) {
         // se l'importo è minore di zero non performa la task
         if (importo < 0) {
