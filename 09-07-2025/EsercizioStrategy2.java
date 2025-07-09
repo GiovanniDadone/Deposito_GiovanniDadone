@@ -12,6 +12,8 @@ public class EsercizioStrategy2 {
             System.out.println("1. Carta di Credito");
             System.out.println("2. PayPal");
             int strategiaScelta = intScanner.nextInt();
+
+            // istanzia il PagamentoContext con la strategia sc
             PagamentoContext context = PagamentoContext.getInstance(strategiaScelta);
             // scelta dell'importo condizionale alla presenza o meno di una strategia
 
@@ -56,35 +58,45 @@ interface MetodoDiPagamento {
     void eseguiPagamento(double importo);
 }
 
+abstract class PagamentoAstratto implements MetodoDiPagamento {
+    @Override
+    public void eseguiPagamento(double importo) {
+        System.out.println("Pagamento eseguito || Importo: " + importo);
+    }
+
+}
+
 // strategie concrete dei metodi di pagamento
-class CartaDiCredito implements MetodoDiPagamento {
+class CartaDiCredito extends PagamentoAstratto {
     @Override
     // l'importo è passato direttamente dal main
     public void eseguiPagamento(double importo) {
-        System.out.println("Pagamento con carta di credito di " + importo);
+        super.eseguiPagamento(importo);
+        System.out.println("Metodo di Pagamento: Carta di Credito");
     }
 }
 
-class PayPal implements MetodoDiPagamento {
+class PayPal extends PagamentoAstratto {
     @Override
     // l'importo è passato direttamente dal main
     public void eseguiPagamento(double importo) {
-        System.out.println("Pagamento con PayPal di " + importo);
+        super.eseguiPagamento(importo);
+        System.out.println("Metodo di Pagamento: PayPal");
     }
 }
 
 // PagamentoContext: simula lo stabilirsi di una connessione di pagamento sicura
 class PagamentoContext {
     private static PagamentoContext context;
-    private static MetodoDiPagamento strategy;
+    private static PagamentoAstratto strategy;
 
     // metodo statico privato che setta la strategia da usare, utilizzat solo nel
     // metodo getInstance()
-    private static void setStrategy(MetodoDiPagamento strategy) {
+    private static void setStrategy(PagamentoAstratto strategy) {
         PagamentoContext.strategy = strategy;
     }
 
-    public static MetodoDiPagamento getStrategy() {
+    public static PagamentoAstratto getStrategy() {
         return strategy;
     }
 
@@ -105,7 +117,7 @@ class PagamentoContext {
     }
 
     public void performTask(double importo) {
-        //se l'importo è minore di zero non performa la task
+        // se l'importo è minore di zero non performa la task
         if (importo < 0) {
             System.out.println("Importo non valido, deve essere maggiore di zero");
             return;
