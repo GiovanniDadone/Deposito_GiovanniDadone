@@ -59,6 +59,7 @@ interface MetodoDiPagamento {
 // strategie concrete dei metodi di pagamento
 class CartaDiCredito implements MetodoDiPagamento {
     @Override
+    // l'importo è passato direttamente dal main
     public void eseguiPagamento(double importo) {
         System.out.println("Pagamento con carta di credito di " + importo);
     }
@@ -66,6 +67,7 @@ class CartaDiCredito implements MetodoDiPagamento {
 
 class PayPal implements MetodoDiPagamento {
     @Override
+    // l'importo è passato direttamente dal main
     public void eseguiPagamento(double importo) {
         System.out.println("Pagamento con PayPal di " + importo);
     }
@@ -103,10 +105,11 @@ class PagamentoContext {
     }
 
     public void performTask(double importo) {
+        //se l'importo è minore di zero non performa la task
         if (importo < 0) {
             System.out.println("Importo non valido, deve essere maggiore di zero");
+            return;
         }
         strategy.eseguiPagamento(importo);
     }
-
 }
