@@ -14,10 +14,10 @@ public class EsercizioStrategy2 {
             int strategiaScelta = intScanner.nextInt();
 
             // istanzia il PagamentoContext con la strategia sc
-            PagamentoContext context = PagamentoContext.getInstance(strategiaScelta);
+            ConnessionePagamento context = ConnessionePagamento.getInstance(strategiaScelta);
             // scelta dell'importo condizionale alla presenza o meno di una strategia
 
-            if (PagamentoContext.getStrategy() != null) {
+            if (ConnessionePagamento.getStrategy() != null) {
                 int importo = 0;
                 System.out.println("Quant'è l'importo?");
 
@@ -90,14 +90,14 @@ class PayPal extends PagamentoAstratto {
 }
 
 // PagamentoContext: simula lo stabilirsi di una connessione di pagamento sicura
-class PagamentoContext {
-    private static PagamentoContext context;
+class ConnessionePagamento {
+    private static ConnessionePagamento context;
     private static PagamentoAstratto strategy;
 
     // metodo statico privato che setta la strategia da usare, utilizzat solo nel
     // metodo getInstance()
     private static void setStrategy(PagamentoAstratto strategy) {
-        PagamentoContext.strategy = strategy;
+        ConnessionePagamento.strategy = strategy;
     }
 
     public static PagamentoAstratto getStrategy() {
@@ -106,9 +106,9 @@ class PagamentoContext {
 
     // metodo getInstance singleton che esita strategie differenti a seconda del
     // parametro int passato
-    public static PagamentoContext getInstance(int strategia) {
+    public static ConnessionePagamento getInstance(int strategia) {
         if (context == null) {
-            context = new PagamentoContext();
+            context = new ConnessionePagamento();
         }
         if (strategia == 1) {
             setStrategy(new CartaDiCredito());
