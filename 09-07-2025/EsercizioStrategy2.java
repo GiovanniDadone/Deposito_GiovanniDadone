@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class EsercizioStrategy2 {
@@ -130,4 +132,117 @@ class ConnessionePagamento {
         }
         strategy.eseguiPagamento(importo);
     }
+}
+
+interface Prodotto {
+    void update(int prezzo);
+}
+
+interface ControllorePrezzi {
+    void registraProdotto(Prodotto o);
+
+    void rimuoviProdotto(Prodotto o);
+
+    void notificaCambioPrezzi();
+}
+
+class ControlloreConcreto implements ControllorePrezzi {
+    private List<Prodotto> observers = new ArrayList<>();
+    private int prezzo;
+
+    public void setState(int prezzo) {
+        this.prezzo = prezzo;
+        notificaCambioPrezzi();
+    }
+
+    @Override
+    public void registraProdotto(Prodotto o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void rimuoviProdotto(Prodotto o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notificaCambioPrezzi() {
+        for (Prodotto observer : observers) {
+            observer.update(prezzo);
+        }
+    }
+}
+
+abstract class CannaDaPesca implements Prodotto {
+    private String name;
+    private int prezzoProdotto;
+
+    public CannaDaPesca(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void update(int prezzo) {
+        setPrezzo(prezzo);
+        System.out.println(name + " : cambio di prezzo = " + prezzoProdotto);
+    }
+
+    public void setPrezzo(int prezzo) {
+        this.prezzoProdotto = prezzo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrezzoProdotto() {
+        return prezzoProdotto;
+    }
+
+}
+
+class CannaConMulinello extends CannaDaPesca {
+
+    public CannaConMulinello(String name) {
+        super(name);
+        maggiorazione();
+    }
+
+    public void maggiorazione() {
+        setPrezzo(this.getPrezzoProdotto() + 12);
+    }
+
+    @Override
+    public void update(int prezzo) {
+        // TODO Auto-generated method stub
+        super.update(prezzo);
+    }
+    
+
+}
+
+class CannaDaSuperfice extends CannaDaPesca {
+
+    public CannaDaSuperfice(String name) {
+        super(name);
+        maggiorazione();
+    }
+
+    public void maggiorazione() {
+        setPrezzo(this.getPrezzoProdotto() + 12);
+    }
+
+}
+
+class CannaDaConEsca extends CannaDaPesca {
+
+    public CannaDaConEsca(String name) {
+        super(name);
+        maggiorazione();
+    }
+
+    public void maggiorazione() {
+        setPrezzo(this.getPrezzoProdotto() + 12);
+    }
+
 }
