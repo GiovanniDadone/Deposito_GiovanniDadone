@@ -1,4 +1,4 @@
-# Deposito_GiovanniDadone
+# ☕️ Deposito_GiovanniDadone ☕️
 
 ## 📁 Struttura del repository
 
