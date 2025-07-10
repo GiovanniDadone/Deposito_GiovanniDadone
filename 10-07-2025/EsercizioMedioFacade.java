@@ -21,7 +21,8 @@ public class EsercizioMedioFacade {
             System.out.println("1. Bios");
             System.out.println("2. Hard Disk");
             System.out.println("3. Sistema Operativo");
-            System.out.println("4. Exit");
+            System.out.println("4. Display dei componenti");
+            System.out.println("5. Exit");
             System.out.print("Scelta: ");
 
             int scelta = 0;
@@ -52,8 +53,10 @@ public class EsercizioMedioFacade {
                     // Case 3 monta Sistema Operativo
                     pc.montaComponentePC(new SistemaOperativo(new PC_Component()));
                     break;
-
                 case 4:
+                pc.mostraComponenti();
+                    break;
+                case 5:
                     uscita = true;
                     System.out.println("Uscita...");
                     break;
@@ -104,6 +107,9 @@ class PC_Component {
         return this.id;
     }
 
+    public void display() {
+        System.out.println("Componente #" + getIdComponente() +": "+ getClass().getSimpleName());
+    }
 }
 
 // decoratore di pc_component: BIOS e observer del ComputerFacde, il subject
@@ -112,8 +118,9 @@ class Bios extends PC_Component {
 
     public Bios(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
+        PC_Component.counter++;
         this.component = component;
-        this.component.setId(++PC_Component.counter);
+        component.setId(PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -128,6 +135,7 @@ class Bios extends PC_Component {
         System.out.println("BIOS inizializzato");
         System.out.println("==============================");
     }
+
 }
 
 // decoratore di pc_component: Hard Disk e observer del ComputerFacde, il
@@ -138,8 +146,9 @@ class HardDisk extends PC_Component {
 
     public HardDisk(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
+        PC_Component.counter++;
         this.component = component;
-        this.component.setId(++PC_Component.counter);
+        this.component.setId(PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -163,9 +172,9 @@ class SistemaOperativo extends PC_Component {
 
     public SistemaOperativo(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
-
+        PC_Component.counter++;
         this.component = component;
-        this.component.setId(++PC_Component.counter);
+        this.component.setId(PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -213,6 +222,13 @@ class ComputerFacade {
         for (int i = 0; i < listaComponentiPC.size(); i++) {
             PC_Component componente = listaComponentiPC.get(i);
             smontaComponentePC(componente);
+        }
+    }
+
+    public void mostraComponenti() {
+        System.out.println("---------COMPONENTI---------");
+        for (PC_Component component : listaComponentiPC) {
+            component.display();
         }
     }
 }
