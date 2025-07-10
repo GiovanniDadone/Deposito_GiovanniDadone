@@ -1,6 +1,6 @@
 # ☕️ Deposito_GiovanniDadone ☕️
 
-## Struttura Cartlle 🗄️
+## Struttura Cartelle 🗄️
 
 ### 🗂️ Prima Settimana
 Contiene esercizi introduttivi e i concetti fondamentali della programmazione in **Java**, tra cui:
