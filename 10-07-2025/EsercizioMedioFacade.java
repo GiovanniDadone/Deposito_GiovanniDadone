@@ -61,7 +61,7 @@ public class EsercizioMedioFacade {
                 default:
                     System.out.println("Scelta non valida!");
             }
-            System.out.println("| | | | | | | | | | | | | | ");
+            System.out.println("| | | | | | | | | | | | | | |");
         }
 
         // scelta binaria per uscire dal programma (termina ugualmente in entrambi i
@@ -73,6 +73,8 @@ public class EsercizioMedioFacade {
             pc.accendiPC();
         } else if (scelta.equalsIgnoreCase("no")) {
             System.out.println("Andiamo a prendere un po' di sole...");
+            // rimuove i componenti dalla lista e lo stampa a console
+            pc.smontaPC();
         }
         stringScanner.close();
         intScanner.close();
@@ -99,7 +101,7 @@ class PC_Component {
     }
 
     public int getIdComponente() {
-        return id;
+        return this.id;
     }
 
 }
@@ -110,9 +112,8 @@ class Bios extends PC_Component {
 
     public Bios(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
-        ;
-        component.setId(++PC_Component.counter);
         this.component = component;
+        this.component.setId(++PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -137,8 +138,8 @@ class HardDisk extends PC_Component {
 
     public HardDisk(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
-        component.setId(++PC_Component.counter);
         this.component = component;
+        this.component.setId(++PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -162,8 +163,9 @@ class SistemaOperativo extends PC_Component {
 
     public SistemaOperativo(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
-        component.setId(++PC_Component.counter);
+
         this.component = component;
+        this.component.setId(++PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -183,6 +185,7 @@ class SistemaOperativo extends PC_Component {
 // qui la classe ComputerFacade funge anche da subject per gli
 // observer(PC_Component)
 class ComputerFacade {
+    // la lista dei componenti funge da istanza privata dei singoli componenti del
     private List<PC_Component> listaComponentiPC = new ArrayList<>();
 
     // metodi di registrazione/rimozione componenti
@@ -191,6 +194,8 @@ class ComputerFacade {
     }
 
     public void smontaComponentePC(PC_Component component) {
+        System.out.println(
+                "Smontaggio componente #" + component.getIdComponente() + ": " + component.getClass().getSimpleName());
         listaComponentiPC.remove(component);
     }
 
@@ -200,6 +205,14 @@ class ComputerFacade {
     public void accendiPC() {
         for (PC_Component component : listaComponentiPC) {
             component.azione();
+        }
+    }
+
+    public void smontaPC() {
+        System.out.println("Disassemblaggio dei componenti del PC");
+        for (int i = 0; i < listaComponentiPC.size(); i++) {
+            PC_Component componente = listaComponentiPC.get(i);
+            smontaComponentePC(componente);
         }
     }
 }
