@@ -1,6 +1,8 @@
 # Deposito_GiovanniDadone
 
-##<STRUTTURA REPOSITORY>
+## 📁 Struttura del repository
 
-###Questa repo ha al suo interno le cartelle delle lezioni divise per settimane con dentro, giorno per giorno, i file dei temi trattati  
-###Inoltre nella cartella Esercizi Test si trovano i file degli esercizi setttimanali 
+Questa repository contiene:
+
+- Cartelle delle lezioni divise per **settimane**, con all'interno i file dei **temi trattati giorno per giorno**.
+- Una cartella chiamata **Esercizi Test**, che raccoglie gli **esercizi settimanali**.
