@@ -1,8 +1,42 @@
 # ☕️ Deposito_GiovanniDadone ☕️
 
-## 📁 Struttura del repository
+## Struttura Cartlle 🗄️
 
-Questa repository contiene:
+### 🗂️ Prima Settimana
+Contiene esercizi introduttivi e i concetti fondamentali della programmazione in **Java**, tra cui:
 
-- Cartelle delle lezioni divise per **settimane**, con all'interno i file dei **temi trattati giorno per giorno**.
-- Una cartella chiamata **Esercizi Test**, che raccoglie gli **esercizi settimanali**.
+- Sintassi di base  
+- Tipi di dati  
+- Strutture di controllo (if, switch, cicli)  
+- Funzioni e metodi  
+- Prime nozioni di **Programmazione Orientata agli Oggetti (OOP)**
+
+---
+
+### 🗂️ Seconda Settimana
+Approfondimento completo della **Programmazione Orientata agli Oggetti**, con esercizi su:
+
+- Classi e oggetti  
+- Ereditarietà  
+- Incapsulamento  
+- Polimorfismo  
+- Classi astratte e interfacce
+
+---
+
+### 🗂️ Terza Settimana
+Introduzione e implementazione dei principali **Design Pattern** in Java:
+
+- Singleton  
+- Observer  
+- Decorator  
+- Strategy  
+- Factory Method  
+- Facade  
+
+Ogni pattern è spiegato, implementato e accompagnato da **esempi pratici**.
+
+---
+
+### 🧪 Test Settimanali
+Contengono prove pratiche svolte al termine della seconda e della terza settimana, pensate per verificare la **comprensione e l’applicazione dei concetti** affrontati.
