@@ -60,22 +60,23 @@ public class EsercizioFactory {
     }
 }
 
-//interfaccia base come aggreatore di tipo
+// interfaccia base come aggreatore di tipo
 interface IVeicolo {
     void avvia();
 
-    //ho cambiato il tipo di ritorno così potevo usarlo all'interno del metodo avvia()
+    // ho cambiato il tipo di ritorno così potevo usarlo all'interno del metodo
+    // avvia()
     String mostraTipo();
 }
 
-//implementazione IVeicolo in Auto
+// implementazione IVeicolo in Auto
 class Auto implements IVeicolo {
 
     @Override
     public void avvia() {
 
         System.out.println("========ACCENSIONE: " + mostraTipo().toUpperCase() + "========");
-        System.out.println("Avvio dell'auto");
+        System.out.println("--------Avvio: " + mostraTipo().toLowerCase() + "-------------");
     }
 
     @Override
@@ -85,13 +86,13 @@ class Auto implements IVeicolo {
 
 }
 
-//implementazione IVeicolo in Moto
+// implementazione IVeicolo in Moto
 class Moto implements IVeicolo {
 
     @Override
     public void avvia() {
         System.out.println("========ACCENSIONE: " + mostraTipo().toUpperCase() + "========");
-        System.out.println("Avvio della moto");
+        System.out.println("--------Avvio: " + mostraTipo().toLowerCase() + "-------------");
     }
 
     @Override
@@ -101,13 +102,13 @@ class Moto implements IVeicolo {
 
 }
 
-//implementazione IVeicolo in Camion
+// implementazione IVeicolo in Camion
 class Camion implements IVeicolo {
 
     @Override
     public void avvia() {
         System.out.println("========ACCENSIONE: " + mostraTipo().toUpperCase() + "========");
-        System.out.println("Avvio del camion");
+        System.out.println("--------Avvio: " + mostraTipo().toLowerCase() + "-------------");
     }
 
     @Override
