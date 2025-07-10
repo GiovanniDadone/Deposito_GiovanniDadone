@@ -7,24 +7,29 @@ public class EsercizioFactory2 {
         boolean uscita = false;
 
         while (!uscita) {
+            // mostra il menù
             MenuFacade.displayMenu();
+
+            // solito blocco per gestire l'input dell'utente correttamente, un while loop
+            // che si ripete finchè la scelta è uguale a 0
             int scelta = 0;
             while (scelta == 0) {
-                try {
-                    scelta = intScanner.nextInt();
-                } catch (InputMismatchException e) {
-                    System.out.println("Non è un numero riprova");
-                    intScanner.nextLine();
-                    scelta = 0;
-                }
+                scelta = MenuFacade.ottieniInput(intScanner);
             }
+            // sceglie la forma e la disgna in console
             MenuFacade.sceltaForma(scelta);
+            // se la scelta è 3 si esce da programma come mostrato sul menu menù, altrimenti
+            // si resetta sullo zero
             if (scelta == 3) {
                 break;
+            } else {
+                scelta = 0;
             }
+            // spaziatura d'ordinanza
             System.out.println();
 
         }
+        // chiusura scanner per buona pratica
         intScanner.close();
     }
 }
@@ -108,7 +113,6 @@ class MenuFacade {
     // scelta
     // dell'utente
     public static void sceltaForma(int scelta) {
-
         switch (scelta) {
             case 1:
                 setStrategy(new CircleFactory());
@@ -121,17 +125,32 @@ class MenuFacade {
             case 3:
                 System.out.println("Uscita...");
                 break;
-
             default:
                 System.out.println("Scelta non valida");
                 break;
         }
-
     }
 
     // semplice metodo statico privato da richiamare internamente(beccati
     // l'incapsulamento e l'astrazione)
     private static void setStrategy(ShapeCreator newCreator) {
         creator = newCreator;
+    }
+
+    // metodo che gestisce l'input dell'utente
+    public static int ottieniInput(Scanner intScanner) {
+        int scelta;
+        // blocco try/catch per gestire l'input errato di qualcosa che non sia un numero
+        // intero
+        try {
+            scelta = intScanner.nextInt();
+        } catch (InputMismatchException e) {
+            // messaggio di errore e reset del ciclo con scelta = 0
+            System.out.println("Non è un numero riprova");
+            intScanner.nextLine(); // libera il buffer consumando il new line "\n"
+            scelta = 0;
+        }
+
+        return scelta;
     }
 }
