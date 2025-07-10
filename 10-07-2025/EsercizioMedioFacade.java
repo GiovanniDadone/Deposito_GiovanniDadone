@@ -94,6 +94,10 @@ class PC_Component {
         System.out.println("--------------------------------");
     }
 
+    public void setId(int newId) {
+        this.id = newId;
+    }
+
     public int getIdComponente() {
         return id;
     }
@@ -106,7 +110,8 @@ class Bios extends PC_Component {
 
     public Bios(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
-        PC_Component.counter++;
+        ;
+        component.setId(++PC_Component.counter);
         this.component = component;
     }
 
@@ -132,7 +137,7 @@ class HardDisk extends PC_Component {
 
     public HardDisk(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
-        PC_Component.counter++;
+        component.setId(++PC_Component.counter);
         this.component = component;
     }
 
@@ -157,7 +162,7 @@ class SistemaOperativo extends PC_Component {
 
     public SistemaOperativo(PC_Component component) {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
-        PC_Component.counter++;
+        component.setId(++PC_Component.counter);
         this.component = component;
     }
 
