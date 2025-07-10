@@ -39,4 +39,4 @@ Ogni pattern è spiegato, implementato e accompagnato da **esempi pratici**.
 ---
 
 ### 🧪 Test Settimanali
-Contengono prove pratiche svolte al termine della seconda e della terza settimana, pensate per verificare la **comprensione e l’applicazione dei concetti** affrontati.
+Contengono prove pratiche svolte al termine della settimana, pensate per verificare la **comprensione e l’applicazione dei concetti** affrontati.
