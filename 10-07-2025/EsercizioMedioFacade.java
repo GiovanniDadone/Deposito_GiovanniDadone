@@ -54,7 +54,7 @@ public class EsercizioMedioFacade {
                     pc.montaComponentePC(new SistemaOperativo(new PC_Component()));
                     break;
                 case 4:
-                pc.mostraComponenti();
+                    pc.mostraComponenti();
                     break;
                 case 5:
                     uscita = true;
@@ -107,8 +107,8 @@ class PC_Component {
         return this.id;
     }
 
-    public void display() {
-        System.out.println("Componente #" + getIdComponente() +": "+ getClass().getSimpleName());
+    public void display(int id) {
+        System.out.println("Componente #" + id + ": " + getClass().getSimpleName());
     }
 }
 
@@ -120,7 +120,8 @@ class Bios extends PC_Component {
         // aumento il counter a ogni istanziazione di decoratori di PC_Component
         PC_Component.counter++;
         this.component = component;
-        component.setId(PC_Component.counter);
+        this.component.setId(PC_Component.counter);
+        setId(PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -149,6 +150,7 @@ class HardDisk extends PC_Component {
         PC_Component.counter++;
         this.component = component;
         this.component.setId(PC_Component.counter);
+        setId(PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -175,6 +177,7 @@ class SistemaOperativo extends PC_Component {
         PC_Component.counter++;
         this.component = component;
         this.component.setId(PC_Component.counter);
+        setId(PC_Component.counter);
     }
 
     // implemento il decorator pattern azionando l'azione base del PC_Component
@@ -228,7 +231,7 @@ class ComputerFacade {
     public void mostraComponenti() {
         System.out.println("---------COMPONENTI---------");
         for (PC_Component component : listaComponentiPC) {
-            component.display();
+            component.display(component.getIdComponente());
         }
     }
 }
