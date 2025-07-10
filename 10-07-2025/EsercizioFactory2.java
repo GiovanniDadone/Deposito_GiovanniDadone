@@ -97,6 +97,7 @@ class MenuFacade {
         System.out.println("Che forma vuoi disegnare?");
         System.out.println("1. Cerchio");
         System.out.println("2. Quadrato");
+        System.out.println("3. Uscita");
         System.out.print("Scelta: ");
     }
 
@@ -110,6 +111,9 @@ class MenuFacade {
             case 2:
                 setStrategy(new SquareFactory());
                 creator.disegna(); // Usa Circle Factory
+                break;
+            case 3:
+                System.out.println("Uscita...");
                 break;
 
             default:
