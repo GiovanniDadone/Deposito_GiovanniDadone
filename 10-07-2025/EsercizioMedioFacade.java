@@ -117,7 +117,8 @@ class Bios extends PC_Component {
     private PC_Component component;
 
     public Bios(PC_Component component) {
-        // aumento il counter a ogni istanziazione di decoratori di PC_Component
+        // aumento il counter a ogni istanziazione di decoratori di PC_Component e lo
+        // setto sia per il decorator che per il component wrappato dentro
         PC_Component.counter++;
         this.component = component;
         this.component.setId(PC_Component.counter);
@@ -146,7 +147,8 @@ class HardDisk extends PC_Component {
     private PC_Component component;
 
     public HardDisk(PC_Component component) {
-        // aumento il counter a ogni istanziazione di decoratori di PC_Component
+        // aumento il counter a ogni istanziazione di decoratori di PC_Component e lo
+        // setto sia per il decorator che per il component wrappato dentro
         PC_Component.counter++;
         this.component = component;
         this.component.setId(PC_Component.counter);
@@ -173,7 +175,8 @@ class SistemaOperativo extends PC_Component {
     private PC_Component component;
 
     public SistemaOperativo(PC_Component component) {
-        // aumento il counter a ogni istanziazione di decoratori di PC_Component
+        // aumento il counter a ogni istanziazione di decoratori di PC_Component e lo
+        // setto sia per il decorator che per il component wrappato dentro
         PC_Component.counter++;
         this.component = component;
         this.component.setId(PC_Component.counter);
