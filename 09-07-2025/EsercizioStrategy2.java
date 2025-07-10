@@ -275,7 +275,6 @@ class CannaDaSuperfice extends CannaDaPesca {
     public void update(int prezzo) {
         super.update(prezzo);
         System.out.println("Prezzo aggiornato per: " + getName());
-
     }
 
 }
@@ -295,7 +294,6 @@ class CannaDaConEsca extends CannaDaPesca {
     public void update(int prezzo) {
         super.update(prezzo);
         System.out.println("Prezzo aggiornato per: " + getName());
-
     }
 
 }
