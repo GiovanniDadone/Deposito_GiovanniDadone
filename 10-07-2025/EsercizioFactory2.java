@@ -5,29 +5,8 @@ public class EsercizioFactory2 {
     public static void main(String[] args) {
         Scanner intScanner = new Scanner(System.in);
 
-        while (true) {
-            // mostra il menù
-            MenuFacade.displayMenu();
+        MenuFacade.avviaMenu(intScanner);
 
-            // solito blocco per gestire l'input dell'utente correttamente, un while loop
-            // che si ripete finchè la scelta è uguale a 0
-            int scelta = 0;
-            while (scelta == 0) {
-                scelta = MenuFacade.ottieniInput(intScanner);
-            }
-            // sceglie la forma e la disgna in console
-            MenuFacade.sceltaForma(scelta);
-            // se la scelta è 3 si esce da programma come mostrato sul menu menù, altrimenti
-            // si resetta sullo zero
-            if (scelta == 3) {
-                break;
-            } else {
-                scelta = 0;
-            }
-            // spaziatura d'ordinanza
-            System.out.println();
-
-        }
         // chiusura scanner per buona pratica
         intScanner.close();
     }
@@ -109,8 +88,7 @@ class MenuFacade {
     }
 
     // metodo statico con uno switch case setta la strategia usata a seconda della
-    // scelta
-    // dell'utente
+    // scelta dell'utente
     public static void sceltaForma(int scelta) {
         switch (scelta) {
             case 1:
@@ -151,5 +129,31 @@ class MenuFacade {
         }
 
         return scelta;
+    }
+
+    public static void avviaMenu(Scanner intScanner) {
+        while (true) {
+            // mostra il menù
+            MenuFacade.displayMenu();
+
+            // solito blocco per gestire l'input dell'utente correttamente, un while loop
+            // che si ripete finchè la scelta è uguale a 0
+            int scelta = 0;
+            while (scelta == 0) {
+                scelta = MenuFacade.ottieniInput(intScanner);
+            }
+            // sceglie la forma e la disgna in console
+            MenuFacade.sceltaForma(scelta);
+            // se la scelta è 3 si esce da programma come mostrato sul menu menù, altrimenti
+            // si resetta sullo zero
+            if (scelta == 3) {
+                break;
+            } else {
+                scelta = 0;
+            }
+            // spaziatura d'ordinanza
+            System.out.println();
+
+        }
     }
 }
