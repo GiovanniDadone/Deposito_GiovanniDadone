@@ -26,22 +26,20 @@ public class EsercizioFactory {
                 }
 
                 switch (scelta) {
+                    VeicoloFacade facade = new VeicoloFacade();
                     case 1:
                         // Case 1 logic
-                        veicolo = VeicoloFactory.creaVeicolo("auto");
-                        veicolo.avvia();
+                        facade.avvia("auto");
                         break;
 
                     case 2:
                         // Case 2 logic
-                        veicolo = VeicoloFactory.creaVeicolo("moto");
-                        veicolo.avvia();
+                        facade.avvia("moto");
                         break;
 
                     case 3:
                         // Case 3 logic
-                        veicolo = VeicoloFactory.creaVeicolo("camion");
-                        veicolo.avvia();
+                        facade.avvia("camion");
                         break;
 
                     case 4:
@@ -137,5 +135,12 @@ class VeicoloFactory {
                 System.out.println("Scelta non valida");
         }
         return veicoloScelto;
+    }
+}
+
+class VeicoloFacade {
+    public void avvia(String tipo) {
+        IVeicolo veicolo = VeicoloFactory.creaVeicolo(tipo);
+        veicolo.avvia();
     }
 }
