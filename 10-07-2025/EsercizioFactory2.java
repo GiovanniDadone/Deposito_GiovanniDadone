@@ -29,12 +29,12 @@ public class EsercizioFactory2 {
     }
 }
 
-// 1. Product: definisce l'interfaccia del prodotto
+// IShape: definisce l'interfaccia delle forme
 interface IShape {
     void disegna();
 }
 
-// 2. ConcreteProductA: implementa Product
+// Circle: implementa il disegno di un cerchio
 class Circle implements IShape {
     @Override
     public void disegna() {
@@ -47,7 +47,7 @@ class Circle implements IShape {
     }
 }
 
-// 3. ConcreteProductB: un altro prodotto concreto
+// 3. Square: implementa il disegno di un quadrato
 class Square implements IShape {
     @Override
     public void disegna() {
@@ -60,15 +60,15 @@ class Square implements IShape {
     }
 }
 
-// ShapeCreator: dichiara il Factory Method
+// ShapeCreator: dichiara il Factory Method creaForma()
 abstract class ShapeCreator {
-    // Factory Method: restituisce un Product
+    // creaForma(): restituisce una forma IShape
     public abstract IShape creaForma();
 
-    // Un metodo del creator che utilizza il prodotto
+    // Un metodo del creator che utilizza le funzioni delle forme
     public void disegna() {
-        IShape product = creaForma(); // creazione del prodotto
-        product.disegna(); // uso del prodotto
+        IShape product = creaForma(); // creazione della formaa
+        product.disegna(); // uso del metodo disegna() della forma
     }
 }
 
@@ -90,8 +90,11 @@ class SquareFactory extends ShapeCreator {
 
 // facade Menu + strategy con direttamente il subject
 class MenuFacade {
+    // istanza privata e statica della strategia scelta, che può essere o il
+    // CircleFactory o lo SquareFactory
     private static ShapeCreator creator;
 
+    // semplice display delle scelte
     public static void displayMenu() {
         System.out.println("=========MENU DELLE FORME===========");
         System.out.println("Che forma vuoi disegnare?");
@@ -101,6 +104,9 @@ class MenuFacade {
         System.out.print("Scelta: ");
     }
 
+    // metodo statico con uno switch case setta la strategia usata a seconda della
+    // scelta
+    // dell'utente
     public static void sceltaForma(int scelta) {
 
         switch (scelta) {
@@ -110,7 +116,7 @@ class MenuFacade {
                 break;
             case 2:
                 setStrategy(new SquareFactory());
-                creator.disegna(); // Usa Circle Factory
+                creator.disegna(); // Usa Square Factory
                 break;
             case 3:
                 System.out.println("Uscita...");
@@ -123,6 +129,8 @@ class MenuFacade {
 
     }
 
+    // semplice metodo statico privato da richiamare internamente(beccati
+    // l'incapsulamento e l'astrazione)
     private static void setStrategy(ShapeCreator newCreator) {
         creator = newCreator;
     }
