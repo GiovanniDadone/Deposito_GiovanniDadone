@@ -3,10 +3,14 @@ import java.util.Scanner;
 
 public class EsercizioFactory {
     public static void main(String[] args) {
+        // apertura scanner per numeri interi
         Scanner intScanner = new Scanner(System.in);
-        boolean uscita = false;
+
+        // apertura facde per il menu
         VeicoloFacade facade = new VeicoloFacade();
 
+        // ciclo principale che applica le logiche del facade
+        boolean uscita = false;
         while (!uscita) {
             System.out.println("Scegli il tipo di veicolo da avviare");
             System.out.println("1. Auto");
@@ -15,14 +19,16 @@ public class EsercizioFactory {
             System.out.println("4. Exit");
 
             int scelta = 0;
+            // mini ciclo che gestisce la scelta e i suoi errori
             while (scelta == 0) {
                 System.out.print("Scelta: ");
+                // gestione try catch in caso ci sia un inputMismatch
                 try {
                     scelta = intScanner.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("Non è un numero");
-                    intScanner.nextLine();
-                    scelta = 0;
+                    intScanner.nextLine();  //consuma il \n a fine input da non intero (eventuale)
+                    scelta = 0; //scelta rimessa a = per non uscire dal ciclo principale
                 }
 
                 switch (scelta) {
