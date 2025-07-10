@@ -5,7 +5,7 @@ public class EsercizioFactory {
     public static void main(String[] args) {
         Scanner intScanner = new Scanner(System.in);
         boolean uscita = false;
-        IVeicolo veicolo = null;
+        VeicoloFacade facade = new VeicoloFacade();
 
         while (!uscita) {
             System.out.println("Scegli il tipo di veicolo da avviare");
@@ -26,7 +26,7 @@ public class EsercizioFactory {
                 }
 
                 switch (scelta) {
-                    VeicoloFacade facade = new VeicoloFacade();
+
                     case 1:
                         // Case 1 logic
                         facade.avvia("auto");
