@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class EsercizioMedioFacade {
     public static void main(String[] args) {
+        // istanziazione del subject ComputerFacade e degli scanner sia per String che
+        // per numeri nteri
         ComputerFacade pc = new ComputerFacade();
         Scanner stringScanner = new Scanner(System.in);
         Scanner intScanner = new Scanner(System.in);
@@ -11,6 +14,7 @@ public class EsercizioMedioFacade {
         // monta i componenti del pc
         boolean uscita = false;
 
+        // while loop principale per la scelta dei componenti
         while (!uscita) {
             System.out.println("======MENU COMPONENTI=====");
             System.out.println("Che component vuoi montare?");
@@ -20,26 +24,32 @@ public class EsercizioMedioFacade {
             System.out.println("4. Exit");
             System.out.print("Scelta: ");
 
-            if (!intScanner.hasNextInt()) {
-                System.out.println("Input non valido! Inserisci un numero.");
-                continue;
+            int scelta = 0;
+
+            // gestione dell'input in modo che debba essere un numero
+            while (scelta == 0) {
+                try {
+                    scelta = intScanner.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Input invalido, inserisci un numero");
+                    scelta = 0;
+                }
             }
 
-            int scelta = intScanner.nextInt();
-
+            // switch case per la gestione della scelta dell'utente
             switch (scelta) {
                 case 1:
-                    // Case 1 logic
+                    // Case 1 monta BIOS
                     pc.montaComponentePC(new Bios(new PC_Component()));
                     break;
 
                 case 2:
-                    // Case 2 logic
+                    // Case 2 monta Hard Disk
                     pc.montaComponentePC(new HardDisk(new PC_Component()));
                     break;
 
                 case 3:
-                    // Case 3 logic
+                    // Case 3 monta Sistema Operativo
                     pc.montaComponentePC(new SistemaOperativo(new PC_Component()));
                     break;
 
@@ -54,7 +64,9 @@ public class EsercizioMedioFacade {
             System.out.println("| | | | | | | | | | | | | | ");
         }
 
-        // scelta binaria
+        // scelta binaria per uscire dal programma (termina ugualmente in entrambi i
+        // casi ma il senso finale si raggiunge lo stesso, si potrebbe mettere un while
+        // per gestire la risposta ma volevo tenerlo semplice)
         System.out.println("Vuoi accendere il pc? SI/no");
         String scelta = stringScanner.nextLine();
         if (scelta.equalsIgnoreCase("si")) {
@@ -63,24 +75,23 @@ public class EsercizioMedioFacade {
             System.out.println("Andiamo a prendere un po' di sole...");
         }
         stringScanner.close();
+        intScanner.close();
     }
 }
 
+// USO PATTERN: Observer, Decorator, Facade
+
+// classe che funge da Observer a cui viene wrappato un decoratore, avrei potuto
+// implementare una interfaccia observer ma non ne vedo la necessità
 class PC_Component {
     public static int counter = 0;
+
+    // id per tenere traccia dei componenti
     private int id;
 
-    public PC_Component() {
-        counter++;
-    }
-
-    public static void stabilizzaCounter() {
-        counter--;
-    }
-
     public void azione() {
-        System.out.println("Componente Montato");
-        System.out.println("----------------------");
+        System.out.println("Componente #" + getIdComponente() + " Montato");
+        System.out.println("--------------------------------");
     }
 
     public int getIdComponente() {
@@ -89,82 +100,87 @@ class PC_Component {
 
 }
 
+// decoratore di pc_component: BIOS e observer del ComputerFacde, il subject
 class Bios extends PC_Component {
     private PC_Component component;
 
     public Bios(PC_Component component) {
+        // aumento il counter a ogni istanziazione di decoratori di PC_Component
+        PC_Component.counter++;
         this.component = component;
-        PC_Component.stabilizzaCounter();
-        System.out.println("Counter: " + PC_Component.counter);
     }
 
-    public void setComponent(PC_Component newComponent) {
-        this.component = newComponent;
-    }
-
+    // implemento il decorator pattern azionando l'azione base del PC_Component
+    // wrappato + l'azione del decoratore, che è un subsistema
     public void azione() {
         this.component.azione();
         inizializza();
     }
 
+    // questa è l'azione da decoratore in più
     public void inizializza() {
         System.out.println("BIOS inizializzato");
-        System.out.println("====================");
+        System.out.println("==============================");
     }
 }
 
+// decoratore di pc_component: Hard Disk e observer del ComputerFacde, il
+// subject
 class HardDisk extends PC_Component {
 
     private PC_Component component;
 
     public HardDisk(PC_Component component) {
+        // aumento il counter a ogni istanziazione di decoratori di PC_Component
+        PC_Component.counter++;
         this.component = component;
-        PC_Component.stabilizzaCounter();
-        System.out.println("Counter: " + PC_Component.counter);
-
     }
 
-    public void setComponent(PC_Component newComponent) {
-        this.component = newComponent;
-    }
-
+    // implemento il decorator pattern azionando l'azione base del PC_Component
+    // wrappato + l'azione del decoratore, che è un subsistema
     public void azione() {
         this.component.azione();
         carica();
     }
 
+    // questa è l'azione da decoratore in più
     public void carica() {
         System.out.println("Hard Disk caricato");
+        System.out.println("==============================");
     }
 }
 
+// decoratore di pc_component: Sistema Operativo e observer del ComputerFacde,
+// il subject
 class SistemaOperativo extends PC_Component {
     private PC_Component component;
 
     public SistemaOperativo(PC_Component component) {
+        // aumento il counter a ogni istanziazione di decoratori di PC_Component
+        PC_Component.counter++;
         this.component = component;
-        PC_Component.stabilizzaCounter();
-        System.out.println("Counter: " + PC_Component.counter);
-
     }
 
-    public void setComponent(PC_Component newComponent) {
-        this.component = newComponent;
-    }
-
+    // implemento il decorator pattern azionando l'azione base del PC_Component
+    // wrappato + l'azione del decoratore, che è un subsistema
     public void azione() {
         this.component.azione();
         avvia();
     }
 
+    // questa è l'azione da decoratore in più
     public void avvia() {
         System.out.println("Sistema Operativo avviato");
+        System.out.println("==============================");
     }
 }
 
+// qui la classe ComputerFacade funge anche da subject per gli
+// observer(PC_Component)
 class ComputerFacade {
     private List<PC_Component> listaComponentiPC = new ArrayList<>();
 
+    // metodi di registrazione/rimozione componenti
     public void montaComponentePC(PC_Component component) {
         listaComponentiPC.add(component);
     }
@@ -173,6 +189,9 @@ class ComputerFacade {
         listaComponentiPC.remove(component);
     }
 
+    // ogni componente fa la sua azione base + quella specifica del decoratore
+    // component.azione() funge qui sia da update() dell'observer pattern che da
+    // facade per una routine di subsistemi
     public void accendiPC() {
         for (PC_Component component : listaComponentiPC) {
             component.azione();
