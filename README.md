@@ -2,7 +2,7 @@
 
 ## Struttura Cartelle 🗄️
 
-### 🗂️ Prima Settimana
+### 🗂️ Settimana 1
 Contiene esercizi introduttivi e i concetti fondamentali della programmazione in **Java**, tra cui:
 
 - Sintassi di base  
@@ -13,7 +13,7 @@ Contiene esercizi introduttivi e i concetti fondamentali della programmazione in
 
 ---
 
-### 🗂️ Seconda Settimana
+### 🗂️ Settimana 2
 Approfondimento completo della **Programmazione Orientata agli Oggetti**, con esercizi su:
 
 - Classi e oggetti  
@@ -24,7 +24,7 @@ Approfondimento completo della **Programmazione Orientata agli Oggetti**, con es
 
 ---
 
-### 🗂️ Terza Settimana
+### 🗂️ Settimana 3
 Introduzione e implementazione dei principali **Design Pattern** in Java:
 
 - Singleton  
@@ -38,5 +38,5 @@ Ogni pattern è spiegato, implementato e accompagnato da **esempi pratici**.
 
 ---
 
-### 🧪 Test Settimanali
+### 🧪 Esercizi Test
 Contengono prove pratiche svolte al termine della settimana, pensate per verificare la **comprensione e l’applicazione dei concetti** affrontati.
