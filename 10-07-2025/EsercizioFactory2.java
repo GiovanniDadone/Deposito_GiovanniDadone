@@ -4,9 +4,8 @@ import java.util.Scanner;
 public class EsercizioFactory2 {
     public static void main(String[] args) {
         Scanner intScanner = new Scanner(System.in);
-        boolean uscita = false;
 
-        while (!uscita) {
+        while (true) {
             // mostra il menù
             MenuFacade.displayMenu();
 
