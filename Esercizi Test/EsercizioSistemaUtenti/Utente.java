@@ -101,14 +101,16 @@ class UtenteNormale extends Utente {
     }
 }
 
-abstract class FactoryUtente {
+class FactoryUtente {
     private static FactoryUtente factory;
 
     public static void setFactory(FactoryUtente factory) {
         FactoryUtente.factory = factory;
     }
 
-    public abstract Utente istanziaUtente(String nome, String password);
+    public Utente istanziaUtente(String nome, String password) {
+        return null;
+    }
 
     public Utente creaUtente(String nome, String password) {
 

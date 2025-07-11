@@ -32,8 +32,8 @@ public class MenuFacade {
                     String passwordLogin = stringScanner.nextLine();
                     Utente loggato = DatabaseUtenti.cercaUtente(nomeLogin, passwordLogin);
                     if (loggato!=null) {
-                        IstanzaDiLogin.setUtenteLoggato(loggato);
-                        IstanzaDiLogin.notificaUtente();
+                        Sessione.setUtenteLoggato(loggato);
+                        Sessione.notificaUtente();
                     } else {
                         System.out.println("Credenziali errate, riprova");
                     }
@@ -41,7 +41,20 @@ public class MenuFacade {
                     break;
 
                 case 2:
-                    // Registrazione
+                    // Registrazione e scelta factory
+                    System.out.println("Che tipo di Utente vuoi creare?");
+                    System.out.println("1. Utente Normale");
+                    System.out.println("2. Admin");
+                    System.out.print("Scelta:");
+                    int sceltaRuolo = ottieniInput(intScanner);
+                    if (sceltaRuolo==1) {
+                        FactoryUtente.setFactory(new FactoryUtenteNormale());
+                    } else if (sceltaRuolo==2) {
+                        FactoryUtente.setFactory(new FactoryAdmin());
+                    } else {
+                        System.out.println("Scelta non valida");
+                    }
+
                     System.out.println("Inserisci nome nuovo utente");
                     String nomeRegistrazione = stringScanner.nextLine();
                     if (checkUnicity(nomeRegistrazione)) {
@@ -91,7 +104,7 @@ public class MenuFacade {
 
 }
 
-class IstanzaDiLogin {
+class Sessione {
     private static Utente utenteLoggato;
 
     public static void setUtenteLoggato(Utente utente) {
