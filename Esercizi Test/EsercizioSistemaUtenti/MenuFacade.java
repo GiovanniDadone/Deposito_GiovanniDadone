@@ -1,7 +1,13 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Menu {
+public class MenuFacade {
+    private FactoryUtente factory;
+
+    public void setFactory(FactoryUtente nuovaFactory) {
+        this.factory = nuovaFactory;
+    }
+
     public void displayMenu() {
         System.out.println("======Login/Registrazione=====");
         System.out.println("1. Login");
@@ -24,6 +30,14 @@ public class Menu {
                     String nomeLogin = stringScanner.nextLine();
                     System.out.println("Inserisci la password");
                     String passwordLogin = stringScanner.nextLine();
+                    Utente loggato = DatabaseUtenti.cercaUtente(nomeLogin, passwordLogin);
+                    if (loggato!=null) {
+                        IstanzaDiLogin.setUtenteLoggato(loggato);
+                        IstanzaDiLogin.notificaUtente();
+                    } else {
+                        System.out.println("Credenziali errate, riprova");
+                    }
+                    //logica di istanza login e notifica login
                     break;
 
                 case 2:
@@ -33,7 +47,7 @@ public class Menu {
                     if (checkUnicity(nomeRegistrazione)) {
                         System.out.println("Inserisci la password");
                         String passwordRegistrazione = stringScanner.nextLine();
-                        DatabaseUtenti.aggiungiUtente(new Utente(nomeRegistrazione, passwordRegistrazione));
+                        DatabaseUtenti.aggiungiUtente(factory.istanziaUtente(nomeRegistrazione, passwordRegistrazione));
                     } else {
                         System.out.println("Utente già registrato");
                     }
@@ -69,10 +83,26 @@ public class Menu {
 
     public boolean checkUnicity(String nome) {
         Utente temporaneo = new Utente(nome, nome);
-        if (DatabaseUtenti.cercaUtente(temporaneo)) {
+        if (DatabaseUtenti.cercaUtente(temporaneo)!=null) {
             return false;
         }
         return true;
     }
 
+}
+
+class IstanzaDiLogin {
+    private static Utente utenteLoggato;
+
+    public static void setUtenteLoggato(Utente utente) {
+        utenteLoggato = utente;
+    }
+
+    public static Utente getUtenteLoggato() {
+        return utenteLoggato;
+    }
+
+    public static void notificaUtente() {
+        utenteLoggato.setNotifica(utenteLoggato.getNome());
+    }
 }

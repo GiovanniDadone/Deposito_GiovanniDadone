@@ -12,13 +12,23 @@ public class DatabaseUtenti {
         listaUtenti.remove(utente);
     }
 
-    public static boolean cercaUtente(Utente utente) {
+    public static Utente cercaUtente(Utente utente) {
         for (Utente utenteLocale : listaUtenti) {
             if (utenteLocale.getNome().equals(utente.getNome())) {
-                return true;
+                return utenteLocale;
             }
         }
-        return false;
+        return null;
+    }
+
+    public static Utente cercaUtente(String nome, String password) {
+        Utente utenteDaCercare = new Utente(nome, password);
+        for (Utente utente : listaUtenti) {
+            if (utente.getNome().equals(utenteDaCercare.getNome())) {
+                return utente;
+            }
+        }
+        return null;
     }
 
 }

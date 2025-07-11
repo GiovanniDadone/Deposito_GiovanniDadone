@@ -1,6 +1,12 @@
 public class Utente implements Notificabile {
     private String nome;
     private String password;
+    private String notifica;
+
+    public void setNotifica(String notifica) {
+        this.notifica = notifica;
+        riceviNotifica();
+    }
 
     public Utente() {
     }
@@ -60,7 +66,7 @@ class Admin extends Utente {
 
     @Override
     public void riceviNotifica() {
-        System.out.println("Notifica ricevuta");
+        System.out.println("Notifica ricevuta! Utente: " + getNome() + " loggato");
     }
 
     public String getTipoUtenza() {
@@ -106,7 +112,7 @@ abstract class FactoryUtente {
 
     public Utente creaUtente(String nome, String password) {
 
-        Utente utente = factory.istanziaUtente(nome, password); // creazione del prodotto
+        Utente utente = factory.istanziaUtente(nome, password); // creazione dell'utente
         return utente;
     }
 }
