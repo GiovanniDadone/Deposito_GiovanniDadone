@@ -1,11 +1,35 @@
-# OdioPattern
-Lavoro di gruppo  settimana 3
-Giovanni si occuperà dei punti 2 e 3 : pattern: strategy,Factory method
-Fabio si occuperà dei punti 4 e 5 : pattern : Observer, Decorator
-Deborah si occuperà dei punti 1,6: pattern: singleton, facade
-Francesco Pierno si occuperà della creazione del main.
-//Commento Deborah
-Singleton: creazione dell'istanza del singleton, costruzione costruttore privato per evitare che ci siano istanziazioni esterne,
-controllo che l'istanza sia nulla se è nulla creo la nuova istanza, creazione del metodo di login dove vado a prendere utente connesso= a username inserito con una stampa di utente loggato + username.
-Creazione del metodo logout con una stampa dell'effettivo logout di quell'utente mettendolo poi a null.
-Creazione metodo getUserConnesso che restituisce chi è connesso in quel momento
+# Giochino Java - Esercizio di Logica e Architettura delle Classi
+
+Questo repository contiene un piccolo **gioco testuale** sviluppato in Java, pensato come esercizio personale per:
+
+- Allenare la **logica di programmazione**
+- Progettare e organizzare correttamente le **classi** e le **relazioni tra oggetti**
+- Sperimentare con concetti di **programmazione orientata agli oggetti (OOP)**
+
+## 🔍 Obiettivi del progetto
+
+- Progettare un'architettura pulita e facilmente estendibile
+- Applicare i pilastri fondamentali di OOP (incapsulamento, ereditarietà, polimorfismo, astrazione)  **DA RIVEDERE**
+- Concentrarsi sulla chiarezza del codice e sulla responsabilità delle classi
+
+## 📦 Struttura del progetto
+
+Il gioco è organizzato in classi separate per:
+
+- **Entità di gioco** (es. personaggi, nemici)
+- **Logica di gioco** (es. gestione dei turni, azioni, combattimenti)
+- **Interfaccia testuale** (es. input/output da console)
+
+## 🛠️ Requisiti
+
+- Java 11 o superiore
+- (Facoltativo) Un IDE come IntelliJ IDEA o VS Code per esplorare meglio la struttura
+
+## 🚧 Stato del progetto
+
+Questo progetto è un **work in progress**: l'obiettivo principale è l'apprendimento, quindi il codice potrà evolvere nel tempo con nuove funzionalità o miglioramenti architetturali. Per ora funziona in maniera molto basica
+
+---
+
+**Nota**: Questo gioco non ha lo scopo di essere un prodotto finito o commerciale, ma uno **strumento didattico personale** per migliorare nella programmazione Java.
+
