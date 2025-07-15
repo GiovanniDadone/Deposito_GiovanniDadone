@@ -1,8 +1,14 @@
+/*droppa il database se esiste per riconfermare gli insert*/
 drop database if exists supermercato;
 
+/*crea il database supermercato*/ 
 create database supermercato;
+
+/*seleziona supermercato come database per evitare di doverlo richiamare nei from successivi*/
 use supermercato;
 
+
+/*creazione di una tabella coi valori id, prodotto, categoria, quantità, prezzo unitario, data vendita */
 create table vendite (
 id INT,
 prodotto VARCHAR(100),
@@ -11,7 +17,7 @@ quantita INT,
 prezzo_unitario DECIMAL(6,2),
 data_vendita date
 );
-
+/*inserimento di 30 prodotti*/
 INSERT INTO vendite (id, prodotto, categoria, quantita, prezzo_unitario, data_vendita) VALUES
 (1, 'Laptop Dell XPS 13', 'Elettronica', 2, 899.99, '2024-01-15'),
 (2, 'iPhone 15', 'Elettronica', 1, 999.00, '2024-01-16'),
@@ -44,42 +50,53 @@ INSERT INTO vendite (id, prodotto, categoria, quantita, prezzo_unitario, data_ve
 (29, 'Tappeto persiano', 'Arredamento', 1, 249.00, '2024-02-13'),
 (30, 'Camicia elegante', 'Abbigliamento', 2, 39.99, '2024-02-14');
 
-
+/*seleziona la categoria dalla tabella vendite e la somma delle quantità vendute per categoria, raggruppate per categoria*/
 select categoria, sum(quantita)
 from vendite
 group by categoria;
 
+
+/*seleziona le categorie dalla tabella vendite e la media del prezzo dei prodotti in ogni categoria, li raggruppa per categoria*/
 select categoria, round(avg(prezzo_unitario), 2) as Prezzo_Medio
 from vendite
 group by categoria;
 
+
+/*seleziona il nome dei prodotti e la quantià di vendite eseguite per prodotto, li ordina in ordine decrescente di quantità*/
 select prodotto, quantita
 from vendite
-where quantita > 0
 order by quantita desc;
 
+/*seleziona il prodotto col prezzo unitario più alto dalla tabella vendite*/
 select prodotto, prezzo_unitario
 from vendite
 where prezzo_unitario = (select max(prezzo_unitario) from vendite);
 
+/*seleziona il prodotto col prezzo unitario più basso dalla tabella vendite*/
 select prodotto, prezzo_unitario
 from vendite
 where prezzo_unitario = (select min(prezzo_unitario) from vendite);
 
-select count(distinct prodotto) as numero_vendite
+
+/*seleziona il numero totale di unità vendute*/
+select sum(quantita) as numero_vendite
 from vendite;
 
+/*seleziona i 5 prodotti col prezzo più alto*/
 select prodotto, prezzo_unitario
 from vendite
 order by prezzo_unitario desc
 limit 5;
 
+
+/*seleziona i 3 prodotti meno venduti*/
 select prodotto, sum(quantita) as vendita_totale
 from vendite
 group by prodotto
 order by vendita_totale
 limit 3;
 
+/*dividendo per categorie, mostra il prodotto con prezzo minore, quello col prezzo maggiore e la media arrotondata a 2 cifre decimali*/
 select categoria,
 min(prezzo_unitario) as 'prezzo minimo per categoria',
 max(prezzo_unitario) as 'prezzo massimo per categoria',
