@@ -1,8 +1,10 @@
+/*fa in modo di usare il database libreria*/
 use libreria;
 
+/*drop della tabella in modo da evitare l'errore di duplicazione*/
 drop table if exists clienti;
 
-
+/*creazione della tabella clienti*/
 create table clienti (
 id int PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(100),
@@ -12,6 +14,7 @@ età INT,
 città VARCHAR(100)
 );
 
+/*inserimento di 44 clienti*/
 INSERT INTO clienti (nome, cognome, email, età, città) VALUES
 ('Luca', 'Rossi', 'luca.rossi@gmail.com', 35, 'Roma'),
 ('Giulia', 'Bianchi', 'giulia.bianchi@yahoo.it', 29, 'Milano'),
@@ -63,7 +66,7 @@ INSERT INTO clienti (nome, cognome, email, età, città) VALUES
 /*seleziona i clienti che hanno come dominio gmail*/
 select *
 from clienti
-where email like '%@gmail.com';
+where email like '%gmail.com';
 
 /*seleziona tutti i clienti col nome che inizia per A*/
 select nome
@@ -73,7 +76,7 @@ where nome like 'a%';
 /*selezione dei clienti col cognome di esattamente 6 caratteri*/
 select nome, cognome
 from clienti
-where char_length(REPLACE(cognome, '''', '')) = 6;
+where char_length(REGEXP_REPLACE(cognome, '[^a-zA-Z]', '')) = 6;
 
 /*selezione dei clienti con età compresa fra 30 e 40*/
 select nome, età
@@ -90,3 +93,4 @@ where città like 'roma'; /*GPT mi fa notare come questo like funziona di defaul
 select *
 from clienti
 where cognome like 'r%';
+
