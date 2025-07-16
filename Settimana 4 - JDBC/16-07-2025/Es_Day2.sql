@@ -8,8 +8,8 @@ inner join countrylanguage as cl
 on c.Code = cl.CountryCode
 order by c.Name asc, cl.Percentage desc;
 
-/*Esercizio 2*/ -- nazioni e la percentuale della lingua più parlata
-select c.Name as Paese, max(cl.Percentage)as 'Percentuale lingua più parlata'
+/*Esercizio 2*/ -- nazioni e la percentuale della lingua più parlata 
+select c.Name as Paese, max(cl.Percentage)as Percentuale
 from country as c
 inner join countrylanguage as cl
 on c.Code = cl.CountryCode
