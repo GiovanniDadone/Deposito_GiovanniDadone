@@ -14,7 +14,7 @@ public class App {
     public static void main(String[] args) {
         String URL = "jdbc:mysql://localhost:3306/sakila";
         String USERNAME = "giovanni";
-        String PASSWORD = "B@RGHa86$b";
+        String PASSWORD = "";
 
         // enuncia la connessione
         Connection connection = null;
