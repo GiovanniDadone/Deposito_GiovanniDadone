@@ -25,3 +25,4 @@ inner join countrylanguage as cl
 on c.Code = cl.CountryCode 
 where c.GovernmentForm = 'Republic'and c.LifeExpectancy > 70
 order by c.LifeExpectancy desc, c.name, cl.Language;
+

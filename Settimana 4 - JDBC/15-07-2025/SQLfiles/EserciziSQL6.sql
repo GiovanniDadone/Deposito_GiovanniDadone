@@ -65,9 +65,18 @@ GROUP BY c.nome;
 
 -- 5  Clienti senza ordini
 SELECT 
-    c.nome, coalesce(c.nome, 'nessun ordine') as 'Nome Cliente'
+    c.nome
 FROM Clienti AS c
+/*praticamente filtro i risultati in base agli id dei clienti che non sono nella lista degli id dei clienti che hanno un ordine*/
 WHERE c.id NOT IN (SELECT DISTINCT id_cliente FROM Ordini WHERE id_cliente IS NOT NULL);
+
+-- 5 Alternativo
+select c.nome
+from Clienti as c
+left join Ordini as o
+on o.id_cliente = c.id
+where o.id_cliente is null;
+
 
 -- 6 Ordini orfani
 SELECT 
