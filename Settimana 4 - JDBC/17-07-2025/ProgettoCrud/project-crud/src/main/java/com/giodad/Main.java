@@ -64,6 +64,7 @@ public class Main {
             //metodo per mostrare il menu
             displayMenu();
 
+            //uso il metodo statico di DbUtils per ottenere l'input numerico
             int scelta = DbUtils.handleIntInput(intScanner);
 
             switch (scelta) {
