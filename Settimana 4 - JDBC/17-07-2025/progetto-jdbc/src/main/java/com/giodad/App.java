@@ -137,18 +137,15 @@ public class App {
         }
     }
 
+    //metodo principale che accetta lo statement, la HashMap degli utenti e il booleano del login effettuato con successo o meno
     public static void menu(Statement statement, HashMap<String, String> map, boolean loggedIn) throws SQLException {
         Scanner intScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
         boolean uscita = false;
 
+        //loop principale per la gestione delle scekte nel menù
         while (!uscita) {
-            System.out.println("Menu Film Rental");
-            System.out.println("1. Login");
-            System.out.println("2. Registrati");
-            System.out.println("3. Mostra i 10 film più noleggiati");
-            System.out.println("4. Exit");
-            System.out.print("Scelta: ");
+            displayMenu();
 
             if (!intScanner.hasNextInt()) {
                 System.out.println("Input non valido! Inserisci un numero.");
@@ -187,11 +184,25 @@ public class App {
                 default:
                     System.out.println("Scelta non valida!");
             }
+            System.out.println("===============================================");
+            System.out.println();
         }
         intScanner.close();
         stringScanner.close();
     }
 
+    //metodo per il display del menu
+    public static void displayMenu() {
+        System.out.println("==============Menu Film Rental=============");
+        System.out.println("1. Login");
+        System.out.println("2. Registrati");
+        System.out.println("3. Mostra i 10 film più noleggiati");
+        System.out.println("4. Exit");
+        System.out.print("Scelta: ");
+    }
+
+
+    //metodo che controlla le credenziali inserite per gestire il boolean di loggedIn
     public static void handleLogin(Scanner stringScanner, HashMap<String, String> map, boolean loggedIn) {
         System.out.println("Inserisci il tuo username");
         String username = stringScanner.nextLine();
@@ -206,6 +217,7 @@ public class App {
         }
     }
 
+    //metodo che registra un utente nella HashMap degli utenti registrati
     public static void handleRegister(Scanner stringScanner, HashMap<String, String> map) {
         System.out.println("Inserisci il tuo nuovo username");
         String username = stringScanner.nextLine();
