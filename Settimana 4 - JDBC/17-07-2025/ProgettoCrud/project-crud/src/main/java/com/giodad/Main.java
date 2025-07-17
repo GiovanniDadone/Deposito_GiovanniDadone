@@ -2,44 +2,41 @@ package com.giodad;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import com.giodad.controller.DbUtils;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class Main {
-    public static Connection getConnection() throws SQLException {
+
+    public static void main(String[] args) {
+        // carico le variabili d'ambiente tramite Dotenv
         Dotenv dotenv = Dotenv.configure()
                 .directory(
                         "project-crud\\.env")
                 .ignoreIfMalformed()
                 .ignoreIfMissing()
                 .load();
-
+        // salvo le variabili caricate in String a parte
         String url = dotenv.get("DB_URL");
         String usr = dotenv.get("DB_USERNAME");
         String pswd = dotenv.get("DB_PASSWORD");
-        Connection conn = DriverManager.getConnection(url, usr, pswd);
-        return conn;
-    }
 
-    public static void main(String[] args) {
+        //creo la referenze della connessione(vuota per aumentarne lo scope)
         Connection conn = null;
         try {
-            conn = getConnection();
+            //apro la connessione per confermare il collegamento al db
+            conn = DriverManager.getConnection(url, usr, pswd);
             if (conn != null) {
                 System.out.println("Connessione riuscita");
             } else {
                 System.out.println("Errore nella connessione");
             }
 
-            readClienti(conn);
+            //metodo statico del main che richiama tutto il menu
+            menuFacade(url, usr, pswd);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,139 +51,88 @@ public class Main {
         }
     }
 
-    // metodo per richiamare il create query in SQL tramite SQL
-    public static void createCliente(Connection conn, String nome, String email, String address, String city) {
-        String sql = "INSERT INTO clienti (nome, email, address, city) VALUES (?, ?, ?)";
+    public static void menuFacade(String url, String user, String password) {
+        Scanner intScanner = new Scanner(System.in);
+        Scanner stringScanner = new Scanner(System.in);
+        boolean uscita = false;
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        while (!uscita) {
+            System.out.println("Menu Title");
+            System.out.println("1. Inserisci nuovo cliente");
+            System.out.println("2. Lista di tutti i clienti");
+            System.out.println("3. Aggiorna i dati di un cliente");
+            System.out.println("4. Elimina un cliente dal numero del suo id");
+            System.out.println("5. Exit");
+            System.out.print("Scelta: ");
 
-            stmt.setString(1, nome);
-            stmt.setString(2, email);
-            stmt.setString(3, address);
-            stmt.setString(4, city);
-            stmt.executeUpdate();
-
-            System.out.println("Cliente inserito con successo!");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void readClienti(Connection conn) {
-        String sql = "SELECT * FROM clienti";
-
-        try (Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                System.out.println(
-                        "ID: " + rs.getInt("id_cliente") +
-                                ", Nome: " + rs.getString("nome") +
-                                ", Email: " + rs.getString("email") +
-                                ", Address: " + rs.getString("address") +
-                                ", City: " + rs.getString("city"));
+            if (!intScanner.hasNextInt()) {
+                System.out.println("Input non valido! Inserisci un numero.");
+                intScanner.next(); // Consuma l'input errato
+                continue;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static void updateCliente(Connection conn, int id, String nuovoNome, String nuovaEmail) {
-        String sql = "UPDATE clienti SET nome = ?, email = ? WHERE id_cliente = ?";
+            int scelta = DbUtils.handleIntInput(intScanner);
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            switch (scelta) {
+                case 1:
+                    // Case 1 logic
+                    System.out.println("Inserisci il nome del nuovo cliente");
+                    String nomeNuovoCliente = DbUtils.handleStringInput(stringScanner);
 
-            stmt.setString(1, nuovoNome);
-            stmt.setString(2, nuovaEmail);
-            stmt.setInt(3, id);
-            int rowsAffected = stmt.executeUpdate();
+                    System.out.println("Inserisci l'email del nuovo cliente");
+                    String emailNuovoCliente = DbUtils.handleStringInput(stringScanner);
 
-            System.out.println(rowsAffected + " record modificati.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+                    System.out.println("Inserisci l'indirizzo del nuovo cliente");
+                    String addressNuovoCliente = DbUtils.handleStringInput(stringScanner);
 
-    public void deleteCliente(Connection conn, int id) {
-        String sql = "DELETE FROM clienti WHERE id_cliente = ?";
+                    System.out.println("Inserisci la città del nuovo cliente");
+                    String cityNuovoCliente = DbUtils.handleStringInput(stringScanner);
+                    DbUtils.createCliente(url, user, password,
+                            nomeNuovoCliente,
+                            emailNuovoCliente,
+                            addressNuovoCliente,
+                            cityNuovoCliente);
+                    break;
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                case 2:
+                    // Case 2 logic
+                    DbUtils.readClienti(url, user, password);
+                    break;
 
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
+                case 3:
+                    // Case 3 logic
+                    System.out.println("Inserisci l'id dell'utente da aggiornare cliente");
+                    int idDaAggiornare = DbUtils.handleIntInput(intScanner);
 
-            System.out.println(rowsAffected + " record eliminati.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+                    System.out.println("Inserisci il nome aggiornato");
+                    String nomeAggiornato = DbUtils.handleStringInput(stringScanner);
 
-    // metodo che controlla le credenziali inserite per gestire il boolean di
-    // loggedIn
-    public static boolean handleLogin(Scanner stringScanner, HashMap<String, String> map, boolean loggedIn) {
-        System.out.println("Inserisci il tuo username");
-        String username = stringScanner.nextLine();
-        System.out.println("Inserisci la tua password");
-        String password = stringScanner.nextLine();
-        if (map.containsKey(username) && map.containsValue(password)) {
-            loggedIn = true;
-            System.out.println("Sei stato loggato");
-        } else {
-            System.out.println("Credenziali errate");
-        }
-        return loggedIn;
-    }
+                    System.out.println("Inserisci l'email aggiornata");
+                    String emailAggiornata = DbUtils.handleStringInput(stringScanner);
+                    DbUtils.updateCliente(url, user, password,
+                            idDaAggiornare,
+                            nomeAggiornato,
+                            emailAggiornata);
+                    break;
 
-    // metodo che registra un utente nella HashMap degli utenti registrati
-    public static void handleRegister(Scanner stringScanner, HashMap<String, String> map) {
-        System.out.println("Inserisci il tuo nuovo username");
-        String username = stringScanner.nextLine();
-        System.out.println("Inserisci la tua nuova password");
-        String password = stringScanner.nextLine();
-        map.put(username, password);
-    }
+                case 4:
+                    // Case 4 logic
+                    System.out.println("Inserisci l'id del cliente da eliminare");
+                    int idDaEliminare = DbUtils.handleIntInput(intScanner);
+                    DbUtils.deleteCliente(url, user, password, idDaEliminare);
+                    break;
 
-    public static int handleIntInput(Scanner intScanner) {
-        int scelta;
-        // blocco try/catch per gestire l'input errato di qualcosa che non sia un numero
-        // intero
-        try {
-            scelta = intScanner.nextInt();
-        } catch (InputMismatchException e) {
-            // messaggio di errore e reset del ciclo con scelta = 0
-            System.out.println("Non è un numero riprova");
-            intScanner.nextLine(); // libera il buffer consumando il new line "\n"
-            scelta = 0;
-        }
+                case 5:
+                    uscita = true;
+                    System.out.println("Uscita...");
+                    break;
 
-        return scelta;
-    }
-
-    // Versione alternativa più compatta
-    public static String handleStringInput(Scanner stringScanner) {
-        String scelta;
-        do {
-            try {
-                scelta = stringScanner.nextLine();
-
-                // Rimuove punto e virgola e tutto ciò che segue
-                int semicolonIndex = scelta.indexOf(';');
-                if (semicolonIndex != -1) {
-                    scelta = scelta.substring(0, semicolonIndex);
-                }
-
-                scelta = scelta.trim();
-
-                if (scelta.isEmpty()) {
-                    System.out.println("Non puoi inserire una stringa vuota");
-                }
-
-            } catch (NoSuchElementException e) {
-                System.out.println("Non puoi inserire una stringa vuota");
-                scelta = "";
+                default:
+                    System.out.println("Scelta non valida!");
             }
-        } while (scelta.isEmpty());
-
-        return scelta;
+        }
+        intScanner.close();
+        stringScanner.close();
     }
+
 }
