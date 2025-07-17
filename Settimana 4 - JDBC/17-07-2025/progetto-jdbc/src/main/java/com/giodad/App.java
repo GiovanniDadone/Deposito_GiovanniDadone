@@ -143,7 +143,7 @@ public class App {
         Scanner stringScanner = new Scanner(System.in);
         boolean uscita = false;
 
-        //loop principale per la gestione delle scekte nel menù
+        //loop principale per la gestione delle scelte nel menù
         while (!uscita) {
             displayMenu();
 
