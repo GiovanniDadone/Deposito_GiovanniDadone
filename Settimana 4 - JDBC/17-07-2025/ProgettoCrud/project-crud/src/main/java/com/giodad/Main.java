@@ -24,10 +24,10 @@ public class Main {
         String usr = dotenv.get("DB_USERNAME");
         String pswd = dotenv.get("DB_PASSWORD");
 
-        //creo la referenze della connessione(vuota per aumentarne lo scope)
+        // creo la referenze della connessione(vuota per aumentarne lo scope)
         Connection conn = null;
         try {
-            //apro la connessione per confermare il collegamento al db
+            // apro la connessione per confermare il collegamento al db
             conn = DriverManager.getConnection(url, usr, pswd);
             if (conn != null) {
                 System.out.println("Connessione riuscita");
@@ -35,12 +35,14 @@ public class Main {
                 System.out.println("Errore nella connessione");
             }
 
-            //metodo statico del main che richiama tutto il menu
+            // metodo statico del main che richiama tutto il menu
             menuFacade(url, usr, pswd);
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            // ultimo try-catch giusto per chiudere la connessione inizialmente aperta per
+            // il messaggio di healthcheck
             try {
                 if (conn != null) {
                     conn.close();
@@ -51,31 +53,22 @@ public class Main {
         }
     }
 
+    // metodo che aziona tutto il menu principale
     public static void menuFacade(String url, String user, String password) {
+        //apertura degli scanner
         Scanner intScanner = new Scanner(System.in);
         Scanner stringScanner = new Scanner(System.in);
         boolean uscita = false;
 
         while (!uscita) {
-            System.out.println("Menu Title");
-            System.out.println("1. Inserisci nuovo cliente");
-            System.out.println("2. Lista di tutti i clienti");
-            System.out.println("3. Aggiorna i dati di un cliente");
-            System.out.println("4. Elimina un cliente dal numero del suo id");
-            System.out.println("5. Exit");
-            System.out.print("Scelta: ");
-
-            if (!intScanner.hasNextInt()) {
-                System.out.println("Input non valido! Inserisci un numero.");
-                intScanner.next(); // Consuma l'input errato
-                continue;
-            }
+            //metodo per mostrare il menu
+            displayMenu();
 
             int scelta = DbUtils.handleIntInput(intScanner);
 
             switch (scelta) {
                 case 1:
-                    // Case 1 logic
+                    // chiedi tutti i dati necessari per la crezione di un nuovo utente
                     System.out.println("Inserisci il nome del nuovo cliente");
                     String nomeNuovoCliente = DbUtils.handleStringInput(stringScanner);
 
@@ -95,12 +88,12 @@ public class Main {
                     break;
 
                 case 2:
-                    // Case 2 logic
+                    // chiama il metodo statico per printare tutti i clienti
                     DbUtils.readClienti(url, user, password);
                     break;
 
                 case 3:
-                    // Case 3 logic
+                    // metodo di UPDATE dove chiede l'id che si vuole aggiornare e i nuovi valori di nome e email
                     System.out.println("Inserisci l'id dell'utente da aggiornare cliente");
                     int idDaAggiornare = DbUtils.handleIntInput(intScanner);
 
@@ -116,7 +109,7 @@ public class Main {
                     break;
 
                 case 4:
-                    // Case 4 logic
+                    // Metodo per il DELETE tramite richiesta di id
                     System.out.println("Inserisci l'id del cliente da eliminare");
                     int idDaEliminare = DbUtils.handleIntInput(intScanner);
                     DbUtils.deleteCliente(url, user, password, idDaEliminare);
@@ -133,6 +126,17 @@ public class Main {
         }
         intScanner.close();
         stringScanner.close();
+    }
+
+    // metodo che printa in console il menu
+    public static void displayMenu() {
+        System.out.println("Menu Title");
+        System.out.println("1. Inserisci nuovo cliente");
+        System.out.println("2. Lista di tutti i clienti");
+        System.out.println("3. Aggiorna i dati di un cliente");
+        System.out.println("4. Elimina un cliente dal numero del suo id");
+        System.out.println("5. Exit");
+        System.out.print("Scelta: ");
     }
 
 }

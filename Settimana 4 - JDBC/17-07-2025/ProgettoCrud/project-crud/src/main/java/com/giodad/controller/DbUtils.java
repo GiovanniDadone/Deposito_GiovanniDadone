@@ -12,6 +12,12 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class DbUtils {
+
+    /***************************************************************************
+     * +++ TUTTI I METODI IN QUESTA CLASSE SONO RICHIAMATI TRAMITE RIFERIMENTO
+     * +++ STATICO
+     ***************************************************************************/
+
     // metodo per richiamare il create query tramite PreparedStatement, crea una
     // connessione ogni volta che viene chiamato
     public static void createCliente(String url, String user, String password, String nome, String email,
