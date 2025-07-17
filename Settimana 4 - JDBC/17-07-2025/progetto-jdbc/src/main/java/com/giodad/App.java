@@ -27,7 +27,7 @@ public class App {
         String username = dotenv.get("DATABASE_USERNAME");
         String password = dotenv.get("DATABASE_PASSWORD");
 
-        // creo una mappa di username e passwor per il login
+        // creo una mappa di username e password per il login
         HashMap<String, String> map = new HashMap<>();
 
         // booleano che gestisce se l'utente è loggato o meno
@@ -72,7 +72,7 @@ public class App {
                         "join inventory i on f.film_id = i.film_id\n" +
                         "join rental r on i.inventory_id = r.inventory_id\n" +
                         "group by f.title\n" +
-                        "order by count asc\n" +
+                        "order by count desc\n" +
                         "limit 10;");
         System.out.println(rs.getMetaData().getColumnName(1).toUpperCase() + " | "
                 + rs.getMetaData().getColumnName(2).toUpperCase());
@@ -155,7 +155,7 @@ public class App {
             switch (scelta) {
                 case 1:
                     // Case 1 logic
-                    handleLogin(stringScanner, map, loggedIn);
+                    loggedIn = handleLogin(stringScanner, map, loggedIn);
                     break;
 
                 case 2:
@@ -199,7 +199,7 @@ public class App {
 
 
     //metodo che controlla le credenziali inserite per gestire il boolean di loggedIn
-    public static void handleLogin(Scanner stringScanner, HashMap<String, String> map, boolean loggedIn) {
+    public static boolean handleLogin(Scanner stringScanner, HashMap<String, String> map, boolean loggedIn) {
         System.out.println("Inserisci il tuo username");
         String username = stringScanner.nextLine();
         System.out.println("Inserisci la tua password");
@@ -208,9 +208,9 @@ public class App {
             loggedIn = true;
             System.out.println("Sei stato loggato");
         } else {
-            loggedIn = false;
             System.out.println("Credenziali errate");
         }
+        return loggedIn;
     }
 
     //metodo che registra un utente nella HashMap degli utenti registrati
