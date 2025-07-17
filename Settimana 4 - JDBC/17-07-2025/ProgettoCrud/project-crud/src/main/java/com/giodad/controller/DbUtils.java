@@ -28,6 +28,10 @@ public class DbUtils {
 
         // apro la connessione e il PreparedStatement con un try-with-resources
         try (Connection conn = DriverManager.getConnection(url, user, password);
+
+                // qua lo statement è "preparato" sia con la query sql sia con un enum,
+                // Statement.RETURN_GENERATED_KEYS, che permette l'insert in una tabella che
+                // possiede una chiava autogenereta con la parola chiave auto_increment
                 PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             // setto i parametri con cui verrà inserito il nuovo cliente nel db
