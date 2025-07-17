@@ -52,7 +52,7 @@ public class App {
             // usare PreparedStatement per evitare SQL injection
             Statement stmt = connection.createStatement();
 
-            // esercizio 10 film più noleggiati
+            // esercizio 10 film più noleggiati, metodo statico che richiama il menù
             menu(stmt, map, loggedIn);
 
         } catch (Exception e) {
