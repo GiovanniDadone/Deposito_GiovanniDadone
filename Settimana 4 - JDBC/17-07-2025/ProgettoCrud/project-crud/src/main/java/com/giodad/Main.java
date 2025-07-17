@@ -38,6 +38,8 @@ public class Main {
                 System.out.println("Errore nella connessione");
             }
 
+            readClienti();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,10 +73,11 @@ public class Main {
 
             while (rs.next()) {
                 System.out.println(
-                        "ID: " + rs.getInt("id") +
+                        "ID: " + rs.getInt("id_cliente") +
                                 ", Nome: " + rs.getString("nome") +
-                                ", Cognome: " + rs.getString("cognome") +
-                                ", Email: " + rs.getString("email"));
+                                ", Email: " + rs.getString("email") +
+                                ", Address: " + rs.getString("address") + 
+                                ", City: " + rs.getString("city"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,7 +85,7 @@ public class Main {
     }
 
     public static void updateCliente(int id, String nuovoNome, String nuovaEmail) {
-        String sql = "UPDATE clienti SET nome = ?, email = ? WHERE id = ?";
+        String sql = "UPDATE clienti SET nome = ?, email = ? WHERE id_cliente = ?";
 
         try (Connection conn = getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -99,7 +102,7 @@ public class Main {
     }
 
     public void deleteCliente(int id) {
-        String sql = "DELETE FROM clienti WHERE id = ?";
+        String sql = "DELETE FROM clienti WHERE id_cliente = ?";
 
         try (Connection conn = getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
