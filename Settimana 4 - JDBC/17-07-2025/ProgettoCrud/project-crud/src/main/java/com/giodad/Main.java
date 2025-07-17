@@ -30,8 +30,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        Connection conn = null;
         try {
-            Connection conn = getConnection();
+            conn = getConnection();
             if (conn != null) {
                 System.out.println("Connessione riuscita");
             } else {
@@ -42,6 +43,14 @@ public class Main {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -74,7 +83,7 @@ public class Main {
                         "ID: " + rs.getInt("id_cliente") +
                                 ", Nome: " + rs.getString("nome") +
                                 ", Email: " + rs.getString("email") +
-                                ", Address: " + rs.getString("address") + 
+                                ", Address: " + rs.getString("address") +
                                 ", City: " + rs.getString("city"));
             }
         } catch (SQLException e) {
@@ -82,7 +91,7 @@ public class Main {
         }
     }
 
-    public static void updateCliente(Connection conn,int id, String nuovoNome, String nuovaEmail) {
+    public static void updateCliente(Connection conn, int id, String nuovoNome, String nuovaEmail) {
         String sql = "UPDATE clienti SET nome = ?, email = ? WHERE id_cliente = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -98,7 +107,7 @@ public class Main {
         }
     }
 
-    public void deleteCliente(Connection conn,int id) {
+    public void deleteCliente(Connection conn, int id) {
         String sql = "DELETE FROM clienti WHERE id_cliente = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -153,19 +162,31 @@ public class Main {
         return scelta;
     }
 
+    // Versione alternativa più compatta
     public static String handleStringInput(Scanner stringScanner) {
-        String scelta = "Vuoto";
-        while (scelta.equalsIgnoreCase("Vuoto")) {
+        String scelta;
+        do {
             try {
                 scelta = stringScanner.nextLine();
-                break;
+
+                // Rimuove punto e virgola e tutto ciò che segue
+                int semicolonIndex = scelta.indexOf(';');
+                if (semicolonIndex != -1) {
+                    scelta = scelta.substring(0, semicolonIndex);
+                }
+
+                scelta = scelta.trim();
+
+                if (scelta.isEmpty()) {
+                    System.out.println("Non puoi inserire una stringa vuota");
+                }
+
             } catch (NoSuchElementException e) {
-                // messaggio di errore e reset del ciclo con scelta = 0
                 System.out.println("Non puoi inserire una stringa vuota");
-                scelta = "Vuoto";
+                scelta = "";
             }
-        }
+        } while (scelta.isEmpty());
+
         return scelta;
     }
-
 }
