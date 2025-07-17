@@ -38,7 +38,7 @@ public class Main {
                 System.out.println("Errore nella connessione");
             }
 
-            readClienti();
+            readClienti(conn);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,11 +46,10 @@ public class Main {
     }
 
     // metodo per richiamare il create query in SQL tramite SQL
-    public static void createCliente(String nome, String email, String address, String city) {
+    public static void createCliente(Connection conn, String nome, String email, String address, String city) {
         String sql = "INSERT INTO clienti (nome, email, address, city) VALUES (?, ?, ?)";
 
-        try (Connection conn = getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, nome);
             stmt.setString(2, email);
@@ -64,11 +63,10 @@ public class Main {
         }
     }
 
-    public static void readClienti() {
+    public static void readClienti(Connection conn) {
         String sql = "SELECT * FROM clienti";
 
-        try (Connection conn = getConnection();
-                Statement stmt = conn.createStatement();
+        try (Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
@@ -84,11 +82,10 @@ public class Main {
         }
     }
 
-    public static void updateCliente(int id, String nuovoNome, String nuovaEmail) {
+    public static void updateCliente(Connection conn,int id, String nuovoNome, String nuovaEmail) {
         String sql = "UPDATE clienti SET nome = ?, email = ? WHERE id_cliente = ?";
 
-        try (Connection conn = getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, nuovoNome);
             stmt.setString(2, nuovaEmail);
@@ -101,11 +98,10 @@ public class Main {
         }
     }
 
-    public void deleteCliente(int id) {
+    public void deleteCliente(Connection conn,int id) {
         String sql = "DELETE FROM clienti WHERE id_cliente = ?";
 
-        try (Connection conn = getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             int rowsAffected = stmt.executeUpdate();
