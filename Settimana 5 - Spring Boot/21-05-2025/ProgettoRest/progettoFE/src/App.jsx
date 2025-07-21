@@ -1,12 +1,11 @@
-import { useState } from 'react'
 import './App.css'
+import OggettiService from './components/OggettiService'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <p>loading...</p>
+      <OggettiService />
     </>
   )
 }
