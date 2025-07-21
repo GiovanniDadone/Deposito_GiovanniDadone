@@ -43,7 +43,7 @@ public class OggettoController {
     @GetMapping("/somma")
     public Integer getSomma() {
         return oggetti.stream()
-                .mapToInt(p -> p.getNumero())
+                .mapToInt(Oggetto::getNumero)
                 .sum();
     }
 
