@@ -10,5 +10,4 @@ public class Progetto1Application {
 		SpringApplication.run(Progetto1Application.class, args);
 		System.out.println("Applicazione Spring Boot avvenuta con successo");
 	}
-
 }
