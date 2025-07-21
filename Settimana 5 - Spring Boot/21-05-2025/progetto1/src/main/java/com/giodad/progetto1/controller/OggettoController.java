@@ -3,6 +3,8 @@ package com.giodad.progetto1.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,18 +28,19 @@ public class OggettoController {
     }
 
     @GetMapping("/{id}")
-    public Oggetto getOggettoById(@PathVariable Long id) {
+    public ResponseEntity<Oggetto> getOggettoById(@PathVariable Long id) {
         return oggetti.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst()
-                .orElse(null);
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Oggetto addOggetto(@RequestBody Oggetto nuovo) {
+    public ResponseEntity<Oggetto> addOggetto(@RequestBody Oggetto nuovo) {
         nuovo.setId(id++);
         oggetti.add(nuovo);
-        return nuovo;
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuovo);
     }
 
     @GetMapping("/somma")
