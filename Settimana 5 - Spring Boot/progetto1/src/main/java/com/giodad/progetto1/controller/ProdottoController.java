@@ -3,6 +3,7 @@ package com.giodad.progetto1.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.giodad.progetto1.model.Prodotto;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/prodotti")
@@ -41,5 +43,23 @@ public class ProdottoController {
                 .filter(p -> p.getId().equals(id)) // cerco quello con il Long id uguale a quello raccolto
                 .findFirst() // ritorna il primo che trova
                 .orElse(null); // se non trova nulla ritorna null, **DA GESTIRE**
+    }
+
+    @PutMapping("/{id}")
+    public Prodotto aggiorna(@PathVariable Long id, @RequestBody Prodotto modificato) {
+        for (Prodotto prodotto : prodotti) {
+            if (prodotto.getId().equals(id)) {
+                prodotto.setName(modificato.getName());
+                prodotto.setPrezzo(modificato.getPrezzo());
+                return prodotto;
+            }
+        }
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public String elimina(@PathVariable Long id) {
+        prodotti.removeIf(p -> p.getId().equals(id));
+        return "Prodotto eliminato con successo";
     }
 }
