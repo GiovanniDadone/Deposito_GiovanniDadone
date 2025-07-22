@@ -7,35 +7,43 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.giodad.progetto_todo.model.Todo;
+import com.giodad.progetto_todo.repository.TodoRepository;
 
 @Service
 public class TodoService {
-    private List<Todo> todos = new ArrayList<>();
-    private Long idCounter = 1L;
+    private final TodoRepository repo;
+
+    public TodoService(TodoRepository repo) {
+        this.repo = repo;
+    }
 
     public List<Todo> getAll() {
-        return todos;
+        List<Todo> lista = new ArrayList<>();
+        repo.findAll().forEach(lista::add);
+        return lista;
     }
 
     public Optional<Todo> getById(Long id) {
-        return todos.stream().filter(p -> p.getId().equals(id)).findFirst();
+        return repo.findById(id);
     }
 
     public Todo create(Todo nuovo) {
-        nuovo.setId(idCounter++);
-        todos.add(nuovo);
-        return nuovo;
+        return repo.save(nuovo);
     }
 
     public Optional<Todo> update(Long id, Todo modificato) {
-        return getById(id).map(todo -> {
-            todo.setDescrizione(modificato.getDescrizione());
-            todo.setCompletato(modificato.isCompletato());
-            return todo;
+        return repo.findById(id).map(t -> {
+            t.setDescrizione(modificato.getDescrizione());
+            t.setCompletato(modificato.isCompletato());
+            return repo.save(t);
         });
     }
 
     public boolean delete(Long id) {
-        return todos.removeIf(t -> t.getId().equals(id));
+        if (repo.existsById(id)) {
+            repo.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
