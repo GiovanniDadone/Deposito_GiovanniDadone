@@ -20,6 +20,7 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
     @Column(name = "descrizione", nullable = false, length = 100)
     private String descrizione;
     private boolean completato;
