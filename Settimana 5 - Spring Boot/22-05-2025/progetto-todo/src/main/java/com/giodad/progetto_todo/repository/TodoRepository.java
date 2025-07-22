@@ -7,5 +7,5 @@ import com.giodad.progetto_todo.model.Todo;
 
 @Repository
 public interface TodoRepository extends CrudRepository<Todo, Long> {
-    // i metodi CRUD da aggiungere
+    //tutti i metodi crud base già pronti!
 }

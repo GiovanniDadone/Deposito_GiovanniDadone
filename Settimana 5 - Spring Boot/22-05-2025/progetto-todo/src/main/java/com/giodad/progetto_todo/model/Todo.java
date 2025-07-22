@@ -1,5 +1,7 @@
 package com.giodad.progetto_todo.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,11 +19,12 @@ public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "descrizione", nullable = false, length = 100)
     private String descrizione;
     private boolean completato;
 
+    @Autowired
     public Todo(String descrizione, boolean completato) {
         this.descrizione = descrizione;
         this.completato = completato;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.giodad.progetto_todo.model.Todo;
@@ -13,6 +14,7 @@ import com.giodad.progetto_todo.repository.TodoRepository;
 public class TodoService {
     private final TodoRepository repo;
 
+    @Autowired
     public TodoService(TodoRepository repo) {
         this.repo = repo;
     }
