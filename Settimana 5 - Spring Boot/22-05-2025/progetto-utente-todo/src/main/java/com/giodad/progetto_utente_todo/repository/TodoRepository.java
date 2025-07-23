@@ -1,12 +1,13 @@
 package com.giodad.progetto_utente_todo.repository;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.giodad.progetto_utente_todo.model.Todo;
 
-@Repository
-public interface TodoRepository extends CrudRepository<Todo, Long> {
+public interface TodoRepository extends JpaRepository<Todo, Long> {
+    List<Todo> findByUtenteId(Long utenteId);
     // tutti i metodi crud base già pronti!
     // ****I METODI SONO I SEGUENTI*****
     /*------------------------------------- */
@@ -23,4 +24,3 @@ public interface TodoRepository extends CrudRepository<Todo, Long> {
     // void deleteAll(Iterable<? extends T> entities);
     // void deleteAll();
 }
-

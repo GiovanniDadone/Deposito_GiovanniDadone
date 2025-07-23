@@ -2,6 +2,8 @@ package com.giodad.progetto_utente_todo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,6 +41,7 @@ private boolean completato;
 private Utente utente;
 
 @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
+@JsonIgnore
 private List<Commento> commenti;
 }
 
