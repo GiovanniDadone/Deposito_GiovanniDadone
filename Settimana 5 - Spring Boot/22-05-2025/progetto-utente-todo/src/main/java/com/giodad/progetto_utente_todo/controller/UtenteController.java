@@ -53,11 +53,4 @@ public class UtenteController {
         return todoService.findByUtenteId(id);
     }
 
-    @PostMapping("/{id}/todo")
-    public Todo createTodoForUtente(@PathVariable Long id, @RequestBody Todo todo) {
-        // Imposta l'utente nel todo
-        Utente utente = utenteService.findById(id);
-        todo.setUtente(utente); // o il metodo che usi per associare l'utente
-        return todoService.save(todo);
-    }
 }

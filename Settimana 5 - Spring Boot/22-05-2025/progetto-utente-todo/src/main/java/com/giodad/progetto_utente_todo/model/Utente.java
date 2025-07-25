@@ -24,6 +24,7 @@ private String nome;
 
 
 //mappedBy deve avere il nome della classe in minuscolo
+//cascade spiega cosa succede alla cancellazione di un utente
 @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, orphanRemoval = true)
 @JsonIgnore
 private List<Todo> todoList;
